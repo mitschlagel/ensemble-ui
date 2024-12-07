@@ -19,12 +19,13 @@ struct LoginScreen: View {
     init() {
         theme.colors.foreground.interactive = .accent
         theme.colors.background.interactive = .accent
+        theme.colors.foreground.primary = .primaryText
         
-        theme.components.authenticator.backgroundColor = Color("Background")
+        theme.components.authenticator.backgroundColor = .background
         
         theme.components.button.primary.cornerRadius = 10
         
-        theme.components.field.backgroundColor = Color("Background")
+        theme.components.field.backgroundColor = .background
     }
     
     var body: some View {
@@ -35,6 +36,22 @@ struct LoginScreen: View {
                     state: state,
                     headerContent: {
                         Spacer()
+                    }
+                )
+            }, signUpContent: { state in
+                SignUpView(
+                    state: state,
+                    headerContent: {
+                        Text("Connect with your ensemble.")
+                            .foregroundStyle(Color.primaryText)
+                    }
+                )
+            }, resetPasswordContent: { state in
+                ResetPasswordView(
+                    state: state,
+                    headerContent: {
+                        Text("Reset your password.")
+                            .foregroundStyle(Color.primaryText)
                     }
                 )
             }, headerContent: {
@@ -49,12 +66,11 @@ struct LoginScreen: View {
                             .fontWeight(.bold)
                             .offset(x: -32)
                     }
-                    
                 }
                 .foregroundStyle(Color.accentColor)
             }, footerContent: {
                 Text("© 2024 All Rights Reserved")
-                    .foregroundStyle(Color.accent)
+                    .foregroundStyle(Color.primaryText)
             }) { state in
                 VStack {
                     Button("Sign out") {
