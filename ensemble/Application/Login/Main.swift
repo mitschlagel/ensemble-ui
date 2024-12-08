@@ -11,14 +11,15 @@ import Authenticator
 
 @Observable class Router {
     var seasonRoutes: [SeasonRoute] = []
-    var profileRoutes: [ProfileRoute] = []
-    var settingsRoutes: [SettingsRoute] = []
+    var ensembleRoutes: [EnsembleRoute] = []
+    var dashboardRoutes: [DashboardRoute] = []
 }
 
 enum Tab: Hashable, Identifiable, CaseIterable {
+    case dashboard
     case season
-    case profile
-    case settings
+    case ensemble
+    
     
     var id: Tab { self }
 }
@@ -27,12 +28,13 @@ extension Tab {
     
     @ViewBuilder var label: some View {
         switch self {
+        case .dashboard:
+            Label("Dashboard", systemImage: "house")
         case .season:
             Label("Season", systemImage: "calendar")
-        case .profile:
-            Label("Profile", systemImage: "person")
-        case .settings:
-            Label("Settings", systemImage: "gear")
+        case .ensemble:
+            Label("Ensemble", systemImage: "person.3")
+        
         }
     }
     
@@ -40,10 +42,10 @@ extension Tab {
         switch self {
         case .season:
             SeasonNavigationStack()
-        case .profile:
-            ProfileNavigationStack()
-        case .settings:
-            SettingsNavigationStack()
+        case .ensemble:
+            EnsembleNavigationStack()
+        case .dashboard:
+            DashboardNavigationStack()
         }
     }
 }

@@ -78,7 +78,7 @@ struct LoginScreen: View {
                     .foregroundStyle(Color.primaryText)
                     .padding(.bottom, 32)
             }) { state in
-                MainContainer(selection: .season, state: state)
+                MainContainer(selection: .dashboard, state: state)
             }
             .authenticatorTheme(theme)
         }

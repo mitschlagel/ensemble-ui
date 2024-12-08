@@ -57,35 +57,10 @@ struct SeasonNavigationStack: View {
                         .environmentObject(state)
                         .navigationBarTitleDisplayMode(.inline)
                         .navigationTitle(route.navigationTitle)
-                        .toolbar {
-                            ToolbarItem(placement: .topBarTrailing) {
-                                Menu {
-                                    Button("Sign out") {
-                                        Task {
-                                            await state.signOut()
-                                        }
-                                    }
-                                } label: {
-                                    Label("Menu", systemImage: "line.3.horizontal")
-                                }
-                            }
-                        }
+                        
                 }
             }
-            .navigationTitle("Season")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Menu {
-                        Button("Sign out") {
-                            Task {
-                                await state.signOut()
-                            }
-                        }
-                    } label: {
-                        Label("Menu", systemImage: "line.3.horizontal")
-                    }
-                }
-            }
+            .primaryToolbar(signedInState: state)
         }
     }
 }
