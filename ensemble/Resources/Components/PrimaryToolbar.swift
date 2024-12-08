@@ -22,7 +22,7 @@ struct PrimaryToolbar: ViewModifier {
                     Button {
                         isSheetPresented = true
                     } label: {
-                        Label("Notifications", systemImage: newNotifications ? "bell.badge.circle" : "bell.circle")
+                        Label("Notifications", systemImage: newNotifications ? "bell.badge" : "bell")
                             .foregroundStyle(Color.accentColor)
                     }
                     .sheet(isPresented: $isSheetPresented) {
@@ -49,8 +49,8 @@ struct PrimaryToolbar: ViewModifier {
                             // TODO: open settings
                         }) {
                             HStack {
-                                Text("Settings")
-                                Image(systemName: "gearshape")
+                                Text("Profile")
+                                Image(systemName: "person")
                             }
                         }
                         Button(action: {
@@ -64,7 +64,7 @@ struct PrimaryToolbar: ViewModifier {
                             }
                         }
                     } label: {
-                        Label("Profile", systemImage: "person.circle")
+                        Label("Profile", systemImage: "gearshape")
                             .foregroundStyle(Color.accentColor)
                     }
                 }
