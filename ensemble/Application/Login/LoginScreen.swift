@@ -26,11 +26,15 @@ struct LoginScreen: View {
         theme.components.button.primary.cornerRadius = 10
         
         theme.components.field.backgroundColor = .background
+        
+        theme.components.authenticator.padding.leading = 24
+        theme.components.authenticator.padding.trailing = 24
+        
     }
     
     var body: some View {
         VStack {
-            Spacer()
+            
             Authenticator(signInContent: { state in
                 SignInView(
                     state: state,
@@ -64,23 +68,22 @@ struct LoginScreen: View {
                         Text("PRO")
                             .font(.title)
                             .fontWeight(.bold)
-                            .offset(x: -32)
+                            .offset(x: -56)
                     }
                 }
+                .padding(.top, 104)
                 .foregroundStyle(Color.accentColor)
             }, footerContent: {
                 Text("© 2024 All Rights Reserved")
                     .foregroundStyle(Color.primaryText)
+                    .padding(.bottom, 32)
             }) { state in
                 MainContainer(selection: .season, state: state)
             }
             .authenticatorTheme(theme)
-
-            Spacer()
-            
         }
-        .padding(24)
-        .background(Color("Background"))
+        .background(Color.background)
+        .ignoresSafeArea()
         
     }
 }

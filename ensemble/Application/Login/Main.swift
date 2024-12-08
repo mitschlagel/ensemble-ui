@@ -73,19 +73,6 @@ struct Main: View {
                     .tabItem { screen.label }
             }
         }
-        .toolbar(content: {
-            ToolbarItem(placement: .topBarTrailing) {
-                Menu {
-                    Button("Sign out") {
-                        Task {
-                            await state.signOut()
-                        }
-                    }
-                } label: {
-                    Label("Menu", systemImage: "person.fill")
-                }
-            }
-        })
     }
 }
 

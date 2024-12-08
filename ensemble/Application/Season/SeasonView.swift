@@ -39,14 +39,40 @@ struct SeasonNavigationStack: View {
         
         NavigationStack(path: $router.seasonRoutes) {
             VStack {
-                Text("Season View")
-                Button("Sign out") {
-                    Task {
-                        await state.signOut()
+                Text("Season Navigation Stack")
+                Button("View Program Detail") {
+                    router.seasonRoutes.append(.program)
+                }
+                .navigationDestination(for: SeasonRoute.self) { route in
+                    route.destination
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu {
+                        Button("Sign out") {
+                            Task {
+                                await state.signOut()
+                            }
+                        }
+                    } label: {
+                        Label("Menu", systemImage: "line.3.horizontal")
                     }
                 }
             }
         }
+    }
+}
+
+struct SeasonView: View {
+    var body: some View {
+        Text("Season View")
+    }
+}
+
+struct ProgramView: View {
+    var body: some View {
+        Text("Program View")
     }
 }
 

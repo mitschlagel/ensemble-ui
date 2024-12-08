@@ -36,9 +36,17 @@ struct SettingsNavigationStack: View {
         NavigationStack(path: $router.settingsRoutes) {
             VStack {
                 Text("Settings View")
-                Button("Sign out") {
-                    Task {
-                        await state.signOut()
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu {
+                        Button("Sign out") {
+                            Task {
+                                await state.signOut()
+                            }
+                        }
+                    } label: {
+                        Label("Menu", systemImage: "line.3.horizontal")
                     }
                 }
             }
