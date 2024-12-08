@@ -1,0 +1,47 @@
+//
+//  SeasonView.swift
+//  ensemble
+//
+//  Created by Spencer Jones on 12/7/24.
+//
+
+import SwiftUI
+
+import Authenticator
+
+enum SettingsRoute: Hashable {
+    case settings
+    case detail(String)
+    
+    @ViewBuilder var destination: some View {
+        switch self {
+        case .settings:
+            Text("Settings View")
+        case .detail(let detail):
+            Text("Settings \(detail) View")
+        }
+    }
+}
+
+struct SettingsNavigationStack: View {
+    
+    @Environment(Router.self) private var router
+    
+    var state: SignedInState
+    
+    var body: some View {
+        
+        @Bindable var router = router
+        
+        NavigationStack(path: $router.settingsRoutes) {
+            VStack {
+                Text("Settings View")
+                Button("Sign out") {
+                    Task {
+                        await state.signOut()
+                    }
+                }
+            }
+        }
+    }
+}

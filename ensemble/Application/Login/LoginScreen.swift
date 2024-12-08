@@ -72,7 +72,7 @@ struct LoginScreen: View {
                 Text("© 2024 All Rights Reserved")
                     .foregroundStyle(Color.primaryText)
             }) { state in
-                LandingScreen(state)
+                MainContainer(selection: .season, state: state)
             }
             .authenticatorTheme(theme)
 

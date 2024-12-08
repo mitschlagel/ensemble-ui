@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F787E5FF2CFFE94A005A2953 /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = F787E5FE2CFFE94A005A2953 /* AWSCognitoAuthPlugin */; };
-		F7A17BD42D04033700ABDE7C /* amplify_outputs.json in Resources */ = {isa = PBXBuildFile; fileRef = F7A17BD32D04033700ABDE7C /* amplify_outputs.json */; };
 		F7A17BD72D04048000ABDE7C /* Authenticator in Frameworks */ = {isa = PBXBuildFile; productRef = F7A17BD62D04048000ABDE7C /* Authenticator */; };
+		F7A17BDD2D05558C00ABDE7C /* amplify_outputs.json in Resources */ = {isa = PBXBuildFile; fileRef = F7A17BDC2D05558C00ABDE7C /* amplify_outputs.json */; };
 		F7DEB4CE2CFEB38D0018D943 /* Amplify in Frameworks */ = {isa = PBXBuildFile; productRef = F7DEB4CD2CFEB38D0018D943 /* Amplify */; };
 		F7DEB4D02CFEB3940018D943 /* AWSAPIPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = F7DEB4CF2CFEB3940018D943 /* AWSAPIPlugin */; };
 /* End PBXBuildFile section */
@@ -32,7 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F7A17BD32D04033700ABDE7C /* amplify_outputs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = amplify_outputs.json; sourceTree = "<group>"; };
+		F7A17BDC2D05558C00ABDE7C /* amplify_outputs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = amplify_outputs.json; sourceTree = "<group>"; };
 		F7DEB49A2CFEAF2F0018D943 /* ensemble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ensemble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7DEB4AC2CFEAF340018D943 /* ensembleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ensembleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7DEB4B62CFEAF340018D943 /* ensembleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ensembleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,7 +106,7 @@
 				F7DEB4B92CFEAF340018D943 /* ensembleUITests */,
 				F7DEB4CC2CFEB38D0018D943 /* Frameworks */,
 				F7DEB49B2CFEAF2F0018D943 /* Products */,
-				F7A17BD32D04033700ABDE7C /* amplify_outputs.json */,
+				F7A17BDC2D05558C00ABDE7C /* amplify_outputs.json */,
 			);
 			sourceTree = "<group>";
 		};
@@ -255,7 +255,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7A17BD42D04033700ABDE7C /* amplify_outputs.json in Resources */,
+				F7A17BDD2D05558C00ABDE7C /* amplify_outputs.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
