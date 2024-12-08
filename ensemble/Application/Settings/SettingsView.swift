@@ -27,7 +27,7 @@ struct SettingsNavigationStack: View {
     
     @Environment(Router.self) private var router
     
-    var state: SignedInState
+    @EnvironmentObject var state: SignedInState
     
     var body: some View {
         
@@ -37,6 +37,7 @@ struct SettingsNavigationStack: View {
             VStack {
                 Text("Settings View")
             }
+            .navigationTitle("Settings")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {

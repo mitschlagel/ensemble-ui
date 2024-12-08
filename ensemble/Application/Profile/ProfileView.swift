@@ -16,9 +16,9 @@ enum ProfileRoute: Hashable {
     @ViewBuilder var destination: some View {
         switch self {
         case .profile:
-            Text("Profile View")
+            Text("Profile Route")
         case .detail(let detail):
-            Text("Profile \(detail) View")
+            Text("Profile \(detail) Route")
         }
     }
 }
@@ -27,7 +27,7 @@ struct ProfileNavigationStack: View {
     
     @Environment(Router.self) private var router
     
-    var state: SignedInState
+    @EnvironmentObject var state: SignedInState
     
     var body: some View {
         
@@ -37,6 +37,7 @@ struct ProfileNavigationStack: View {
             VStack {
                 Text("Profile View")
             }
+            .navigationTitle("Profile")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {

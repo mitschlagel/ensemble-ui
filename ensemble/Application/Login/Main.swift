@@ -15,15 +15,15 @@ import Authenticator
     var settingsRoutes: [SettingsRoute] = []
 }
 
-enum Screen: Hashable, Identifiable, CaseIterable {
+enum Tab: Hashable, Identifiable, CaseIterable {
     case season
     case profile
     case settings
     
-    var id: Screen { self }
+    var id: Tab { self }
 }
 
-extension Screen {
+extension Tab {
     
     @ViewBuilder var label: some View {
         switch self {
@@ -36,43 +36,46 @@ extension Screen {
         }
     }
     
-    @ViewBuilder func destination(state: SignedInState) -> some View {
+    @ViewBuilder var destination: some View {
         switch self {
         case .season:
-            SeasonNavigationStack(state: state)
+            SeasonNavigationStack()
         case .profile:
-            ProfileNavigationStack(state: state)
+            ProfileNavigationStack()
         case .settings:
-            SettingsNavigationStack(state: state)
+            SettingsNavigationStack()
         }
     }
 }
 
 struct MainContainer: View {
     @State private var router = Router()
-    @State var selection: Screen?
+    @State var selection: Tab?
     
-    var state: SignedInState
+    @StateObject var state: SignedInState
     
     var body: some View {
-        Main(selection: $selection, state: state)
+        Main(selection: $selection)
             .environment(router)
+            .environmentObject(state)
     }
 }
 
 struct Main: View {
     
-    @Binding var selection: Screen?
-    var state: SignedInState
+    @Binding var selection: Tab?
+    @EnvironmentObject var state: SignedInState
     
     var body: some View {
         TabView(selection: $selection) {
-            ForEach(Screen.allCases) { screen in
-                screen.destination(state: state)
-                    .tag(screen as Screen?)
-                    .tabItem { screen.label }
+            ForEach(Tab.allCases) { tab in
+                tab.destination
+                    .environmentObject(state)
+                    .tag(tab as Tab?)
+                    .tabItem { tab.label }
             }
         }
+        
     }
 }
 

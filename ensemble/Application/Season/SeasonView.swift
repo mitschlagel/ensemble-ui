@@ -17,12 +17,22 @@ enum SeasonRoute: Hashable {
 //    case location
 //    case personnel
     
+    var navigationTitle: String {
+        switch self {
+        case .season:
+            return "Season"
+        case .program:
+            return "Program"
+        }
+    }
+    
+    /// Determines the root view for each route
     @ViewBuilder var destination: some View {
         switch self {
         case .season:
-            Text("Season View")
+            SeasonView()
         case .program:
-            Text("Program View")
+            ProgramView()
         }
     }
 }
@@ -31,7 +41,7 @@ struct SeasonNavigationStack: View {
     
     @Environment(Router.self) private var router
     
-    var state: SignedInState
+    @EnvironmentObject var state: SignedInState
     
     var body: some View {
         
@@ -39,14 +49,30 @@ struct SeasonNavigationStack: View {
         
         NavigationStack(path: $router.seasonRoutes) {
             VStack {
-                Text("Season Navigation Stack")
                 Button("View Program Detail") {
                     router.seasonRoutes.append(.program)
                 }
                 .navigationDestination(for: SeasonRoute.self) { route in
                     route.destination
+                        .environmentObject(state)
+                        .navigationBarTitleDisplayMode(.inline)
+                        .navigationTitle(route.navigationTitle)
+                        .toolbar {
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Menu {
+                                    Button("Sign out") {
+                                        Task {
+                                            await state.signOut()
+                                        }
+                                    }
+                                } label: {
+                                    Label("Menu", systemImage: "line.3.horizontal")
+                                }
+                            }
+                        }
                 }
             }
+            .navigationTitle("Season")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
@@ -65,28 +91,17 @@ struct SeasonNavigationStack: View {
 }
 
 struct SeasonView: View {
+    
     var body: some View {
         Text("Season View")
     }
 }
 
 struct ProgramView: View {
+    
     var body: some View {
-        Text("Program View")
+        VStack {
+            Text("Program View")
+        }
     }
 }
-
-
-//    .toolbar {
-//        ToolbarItem(placement: .topBarTrailing) {
-//            Menu {
-//                Button("Sign out") {
-//                    Task {
-//                        await state.signOut()
-//                    }
-//                }
-//            } label: {
-//                Label("Menu", systemImage: "person.fill")
-//            }
-//        }
-//    }
