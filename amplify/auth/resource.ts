@@ -6,6 +6,13 @@ import { defineAuth } from '@aws-amplify/backend';
  */
 export const auth = defineAuth({
   loginWith: {
-    email: true,
+    phone: true
   },
+  userAttributes: {
+    "custom:ensemble_id": {
+      dataType: "String",
+      maxLen: 6,
+      mutable: false
+    }
+  }
 });

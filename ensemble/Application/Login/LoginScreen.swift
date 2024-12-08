@@ -72,13 +72,7 @@ struct LoginScreen: View {
                 Text("© 2024 All Rights Reserved")
                     .foregroundStyle(Color.primaryText)
             }) { state in
-                VStack {
-                    Button("Sign out") {
-                        Task {
-                            await state.signOut()
-                        }
-                    }
-                }
+                LandingScreen(state)
             }
             .authenticatorTheme(theme)
 
