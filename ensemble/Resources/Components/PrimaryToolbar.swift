@@ -19,38 +19,13 @@ struct PrimaryToolbar: ViewModifier {
         content
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        isSheetPresented = true
-                    } label: {
-                        Label("Notifications", systemImage: newNotifications ? "bell.badge" : "bell")
-                            .foregroundStyle(Color.accentColor)
-                    }
-                    .sheet(isPresented: $isSheetPresented) {
-                        NotificationSheetView()
-                            .presentationDetents([.medium, .large])
-                            .presentationDragIndicator(.visible)
-                    }
-                }
-                ToolbarItem(placement: .principal) {
-                    HStack {
-                        Text("ensemble")
-                            .font(Font.custom("MrDafoe-Regular", size: 32))
-                        Text("PRO")
-                            .font(.caption)
-                            .fontWeight(.bold)
-                            .offset(y: 4)
-                    }
-                    .foregroundStyle(Color.accentColor)
-                    
-                }
-                ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Button(action: {
                             // TODO: open settings
                         }) {
                             HStack {
-                                Text("Profile")
-                                Image(systemName: "person")
+                                Text("Settings")
+                                Image(systemName: "gearshape")
                             }
                         }
                         Button(action: {
@@ -64,9 +39,38 @@ struct PrimaryToolbar: ViewModifier {
                             }
                         }
                     } label: {
-                        Label("Profile", systemImage: "gearshape")
+                        Label("Profile", systemImage: "person.crop.circle")
+                            .foregroundStyle(Color.accentColor)
+                            .font(.headline)
+                    }
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        isSheetPresented = true
+                    } label: {
+                        Label("Notifications", systemImage: newNotifications ? "bell.badge" : "bell")
                             .foregroundStyle(Color.accentColor)
                     }
+                    .sheet(isPresented: $isSheetPresented) {
+                        NotificationSheetView()
+                            .presentationDetents([.medium, .large])
+                            .presentationDragIndicator(.visible)
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    HStack {
+                        Text("ensemble")
+                            .font(Font.custom("MrDafoe-Regular", size: 40))
+                        /// Only shown if ensemble is pro version
+                        if true {
+                            Text("PRO")
+                                .font(.callout)
+                                .fontWeight(.bold)
+                                .offset(y: 4)
+                        }
+                    }
+                    .foregroundStyle(Color.accentColor)
+                    
                 }
             }
     }
