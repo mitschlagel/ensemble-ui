@@ -21,6 +21,22 @@ struct PrimaryToolbar: ViewModifier {
                 ToolbarItem(placement: .topBarLeading) {
                     Menu {
                         Button(action: {
+                            // TODO: open profile
+                        }, label: {
+                            HStack {
+                                Text("Spencer Jones")
+                                Image(systemName: "person")
+                            }
+                        })
+                        Button(action: {
+                            // TODO: open profile
+                        }, label: {
+                            HStack {
+                                Text("Omaha Symphony")
+                                Image(systemName: "music.note.house")
+                            }
+                        })
+                        Button(action: {
                             // TODO: open settings
                         }) {
                             HStack {

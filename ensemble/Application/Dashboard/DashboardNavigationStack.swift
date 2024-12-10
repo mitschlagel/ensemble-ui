@@ -39,10 +39,10 @@ enum DashboardRoute: Equatable, Hashable {
     func hash(into hasher: inout Hasher) {
             switch self {
             case .dashboardRoot:
-                hasher.combine(0) // Any unique value for this case
+                hasher.combine(0)
             case .repertoire(let repertoire):
-                hasher.combine(1) // Any unique value for this case
-                hasher.combine(repertoire) // Hash the associated value
+                hasher.combine(1)
+                hasher.combine(repertoire)
             }
         }
 }
