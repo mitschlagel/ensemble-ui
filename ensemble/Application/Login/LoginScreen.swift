@@ -61,18 +61,22 @@ struct LoginScreen: View {
             }, headerContent: {
                 VStack(spacing: -32) {
                     Text("ensemble")
-                        .font(Font.custom("MrDafoe-Regular", size: 88))
+                        .font(Font.custom("MrDafoe-Regular", size: 80))
                     
                     HStack {
                         Spacer()
                         Text("PRO")
-                            .font(.title)
+                            .font(.headline)
                             .fontWeight(.bold)
-                            .offset(x: -56)
+                            .offset(x: -64, y: 8)
                     }
                 }
                 .padding(.top, 104)
-                .foregroundStyle(Color.accentColor)
+                .foregroundStyle(LinearGradient(
+                    gradient: Gradient(colors: [.accent, .alwaysAccentDark]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ))
             }, footerContent: {
                 Text("© 2024 All Rights Reserved")
                     .foregroundStyle(Color.primaryText)

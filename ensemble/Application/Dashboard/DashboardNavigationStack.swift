@@ -34,10 +34,14 @@ struct DashboardNavigationStack: View {
         @Bindable var router = router
         
         NavigationStack(path: $router.dashboardRoutes) {
-            VStack {
-                Text("Dashboard View")
-            }
-            .primaryToolbar(signedInState: state)
+            DashboardRootView()
+                .primaryToolbar(signedInState: state)
         }
+    }
+}
+
+struct DashboardRootView: View {
+    var body: some View {
+        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Hello, world!@*/Text("Hello, world!")/*@END_MENU_TOKEN@*/
     }
 }
