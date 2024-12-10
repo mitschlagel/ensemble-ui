@@ -10,16 +10,38 @@ import SwiftUI
 
 struct DashboardRootView: View {
     
+    @Environment(Router.self) private var router
+    
     let currentProgram = Program()
+    
+    @State private var selectedSheet: InfoButton?
+    
     var body: some View {
         VStack {
             VStack {
                 welcomeMessage
-                todaysAgenda
+                /// could this be a carousel of every week????
+                programCard
             }
         }
         .background(Color.background)
         .padding()
+        .sheet(item: $selectedSheet) { sheet in
+            switch sheet {
+            case .dress:
+                Text("Dress Code: \(currentProgram.dress.name)")
+                    .presentationDetents([.medium, .large])
+                    .presentationDragIndicator(.visible)
+            case .location:
+                Text("Location: \(currentProgram.venueName)\n\(currentProgram.venueAddress)")
+                    .presentationDetents([.medium, .large])
+                    .presentationDragIndicator(.visible)
+            case .moreInfo:
+                Text("More info sheet")
+                    .presentationDetents([.medium, .large])
+                    .presentationDragIndicator(.visible)
+            }
+        }
         
         
     }
@@ -43,9 +65,9 @@ struct DashboardRootView: View {
             .frame(height: 96)
     }
     
-    @ViewBuilder var upcomingServices: some View {
+    @ViewBuilder var serviceList: some View {
         ForEach(currentProgram.services, id: \.id) { service in
-            VStack(alignment: .leading) {
+            VStack() {
                 HStack {
                     Text(service.day)
                     Spacer()
@@ -67,7 +89,7 @@ struct DashboardRootView: View {
         }
     }
     
-    @ViewBuilder var todaysAgenda: some View {
+    @ViewBuilder var programCard: some View {
         RoundedRectangle(cornerRadius: 8)
             .fill(Color.alwaysAccentDark.opacity(0.75))
             .overlay(
@@ -82,47 +104,77 @@ struct DashboardRootView: View {
                             .font(.callout)
                     }
                     HStack(spacing: 24) {
-                        infoButton(.rep)
+                        repButton
                         infoButton(.dress)
                         infoButton(.location)
                         infoButton(.moreInfo)
                     }
                     .padding(.vertical, 16)
-                    Spacer()
-                    upcomingServices
+                    serviceList
                     
                 }
-                .padding()
-                .foregroundStyle(Color.white)
+                .padding(16)
+                .foregroundStyle(Color.white.opacity(0.90))
                 
             )
     }
     
-    @ViewBuilder func infoButton(_ type: InfoButton) -> some View {
-        Button(action: {}, label: {
+    @ViewBuilder var repButton: some View {
+        Button(action: {
+            router.dashboardRoutes.append(.repertoire(currentProgram.repertoire))
+        }, label: {
             ZStack {
                 Circle()
                     .frame(width: 48, height: 48)
                     .foregroundStyle(Color.alwaysAccentDark.opacity(0.75))
-                switch type {
-                case .rep:
-                    Image(systemName: "music.note.list")
-                case .dress:
-                    Image(systemName: "tshirt")
-                case .location:
-                    Image(systemName: "mappin.and.ellipse")
-                case .moreInfo:
-                    Image(systemName: "info")
+                Image(systemName: "music.note.list")
                 }
             }
-            .font(.headline)
-        })
+        )
+        .navigationDestination(for: DashboardRoute.self) { route in
+            route.destination
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle(route.navigationTitle)
+                
+        }
     }
     
-    enum InfoButton {
-        case rep, dress, location, moreInfo
+    @ViewBuilder func infoButton(_ type: InfoButton) -> some View {
+        
+            Button(action: {
+                switch type {
+                case .dress:
+                    selectedSheet = .dress
+                case .location:
+                    selectedSheet = .location
+                case .moreInfo:
+                    selectedSheet = .moreInfo
+                }
+            }, label: {
+                ZStack {
+                    Circle()
+                        .frame(width: 48, height: 48)
+                        .foregroundStyle(Color.alwaysAccentDark.opacity(0.75))
+                    switch type {
+                    case .dress:
+                        Image(systemName: "tshirt")
+                    case .location:
+                        Image(systemName: "mappin.and.ellipse")
+                    case .moreInfo:
+                        Image(systemName: "info")
+                    }
+                }
+                .font(.headline)
+            })
+        
+        
     }
-}
+    
+    enum InfoButton: Identifiable {
+        case dress, location, moreInfo
+
+        var id: InfoButton { self }
+    }}
 
 #Preview {
     DashboardRootView()
@@ -198,7 +250,8 @@ enum DressCode {
     }
 }
 
-struct Repertoire {
+struct Repertoire: Hashable {
+    var id = UUID()
     var composer: String
     var title: String
     var instrumentation: String

@@ -9,18 +9,42 @@ import SwiftUI
 
 import Authenticator
 
-enum DashboardRoute: Hashable {
+enum DashboardRoute: Equatable, Hashable {
+    
+    static func == (lhs: DashboardRoute, rhs: DashboardRoute) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+    
     case dashboardRoot
-    case detail(String)
+    case repertoire([Repertoire])
+    
+    var navigationTitle: String {
+        switch self {
+        case .dashboardRoot:
+            return "Dashboard"
+        case .repertoire:
+            return "Repertoire"
+        }
+    }
     
     @ViewBuilder var destination: some View {
         switch self {
         case .dashboardRoot:
             DashboardRootView()
-        case .detail(let detail):
-            Text("Dashboard \(detail) View")
+        case .repertoire(let repertoire):
+            RepertoireView(repertoire: repertoire)
         }
     }
+    
+    func hash(into hasher: inout Hasher) {
+            switch self {
+            case .dashboardRoot:
+                hasher.combine(0) // Any unique value for this case
+            case .repertoire(let repertoire):
+                hasher.combine(1) // Any unique value for this case
+                hasher.combine(repertoire) // Hash the associated value
+            }
+        }
 }
 
 struct DashboardNavigationStack: View {
