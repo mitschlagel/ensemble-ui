@@ -61,7 +61,7 @@ struct DashboardRootView: View {
                         .padding(4)
                 }
             }
-            .font(.caption)
+            .font(.caption2)
             .foregroundStyle(Color.white)
                 
         }
@@ -77,16 +77,16 @@ struct DashboardRootView: View {
                             .font(.footnote)
                         Text(currentProgram.title)
                             .font(.headline)
+                            .fixedSize(horizontal: false, vertical: true)
                         Text("\(currentProgram.conductor), conductor")
                             .font(.callout)
                     }
-                    HStack(spacing: 32) {
+                    HStack(spacing: 24) {
                         infoButton(.rep)
                         infoButton(.dress)
                         infoButton(.location)
                         infoButton(.moreInfo)
                     }
-                    .font(.title)
                     .padding(.vertical, 16)
                     Spacer()
                     upcomingServices
@@ -102,7 +102,7 @@ struct DashboardRootView: View {
         Button(action: {}, label: {
             ZStack {
                 Circle()
-                    .frame(width: 56)
+                    .frame(width: 48, height: 48)
                     .foregroundStyle(Color.alwaysAccentDark.opacity(0.75))
                 switch type {
                 case .rep:
@@ -115,6 +115,7 @@ struct DashboardRootView: View {
                     Image(systemName: "info")
                 }
             }
+            .font(.headline)
         })
     }
     
