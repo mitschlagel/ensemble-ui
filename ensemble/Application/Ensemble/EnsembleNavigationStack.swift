@@ -10,12 +10,12 @@ import SwiftUI
 import Authenticator
 
 enum EnsembleRoute: Hashable {
-    case ensemble
+    case ensembleRoot
     case detail(String)
     
     @ViewBuilder var destination: some View {
         switch self {
-        case .ensemble:
+        case .ensembleRoot:
             Text("Ensemble Route")
         case .detail(let detail):
             Text("Ensemble \(detail) Route")
@@ -34,10 +34,8 @@ struct EnsembleNavigationStack: View {
         @Bindable var router = router
         
         NavigationStack(path: $router.ensembleRoutes) {
-            VStack {
-                Text("Ensemble View")
-            }
-            .primaryToolbar(signedInState: state)
+            EnsembleRootView()
+                .primaryToolbar(signedInState: state)
         }
     }
 }

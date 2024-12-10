@@ -10,13 +10,13 @@ import SwiftUI
 import Authenticator
 
 enum DashboardRoute: Hashable {
-    case dashboard
+    case dashboardRoot
     case detail(String)
     
     @ViewBuilder var destination: some View {
         switch self {
-        case .dashboard:
-            Text("Dashboard View")
+        case .dashboardRoot:
+            DashboardRootView()
         case .detail(let detail):
             Text("Dashboard \(detail) View")
         }
@@ -37,11 +37,5 @@ struct DashboardNavigationStack: View {
             DashboardRootView()
                 .primaryToolbar(signedInState: state)
         }
-    }
-}
-
-struct DashboardRootView: View {
-    var body: some View {
-        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Hello, world!@*/Text("Hello, world!")/*@END_MENU_TOKEN@*/
     }
 }

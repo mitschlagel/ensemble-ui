@@ -13,6 +13,8 @@ import AWSCognitoAuthPlugin
 @main
 struct ensembleApp: App {
     
+    
+    
     init() {
         do {
             try Amplify.add(plugin: AWSCognitoAuthPlugin())

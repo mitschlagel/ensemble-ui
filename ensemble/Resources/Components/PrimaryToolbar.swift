@@ -15,14 +15,6 @@ struct PrimaryToolbar: ViewModifier {
     @State private var newNotifications = false
     @State private var isSheetPresented = false
     
-    var primaryGradient: LinearGradient {
-        LinearGradient(
-            gradient: Gradient(colors: [.accent, .alwaysAccentDark]),
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
-    }
-    
     func body(content: Content) -> some View {
         content
             .toolbar {
@@ -48,7 +40,7 @@ struct PrimaryToolbar: ViewModifier {
                         }
                     } label: {
                         Label("Profile", systemImage: "person.crop.circle")
-                            .foregroundStyle(primaryGradient)
+                            .foregroundStyle(Color.accent)
                             .font(.headline)
                     }
                 }
@@ -57,7 +49,7 @@ struct PrimaryToolbar: ViewModifier {
                         isSheetPresented = true
                     } label: {
                         Label("Notifications", systemImage: newNotifications ? "bell.badge" : "bell")
-                            .foregroundStyle(primaryGradient)
+                            .foregroundStyle(Color.accent)
                     }
                     .sheet(isPresented: $isSheetPresented) {
                         NotificationSheetView()
@@ -77,7 +69,7 @@ struct PrimaryToolbar: ViewModifier {
                                 .offset(y: 4)
                         }
                     }
-                    .foregroundStyle(primaryGradient)
+                    .foregroundStyle(Color.accent)
                 }
             }
     }

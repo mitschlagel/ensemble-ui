@@ -49,6 +49,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		F74F949B2D07FD9D006AD58D /* MockAmplifyModels() */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "MockAmplifyModels()";
+			sourceTree = "<group>";
+		};
 		F7DEB49C2CFEAF2F0018D943 /* ensemble */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -101,6 +106,7 @@
 		F7DEB4912CFEAF2F0018D943 = {
 			isa = PBXGroup;
 			children = (
+				F74F949B2D07FD9D006AD58D /* MockAmplifyModels() */,
 				F7DEB49C2CFEAF2F0018D943 /* ensemble */,
 				F7DEB4AF2CFEAF340018D943 /* ensembleTests */,
 				F7DEB4B92CFEAF340018D943 /* ensembleUITests */,
@@ -143,6 +149,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				F74F949B2D07FD9D006AD58D /* MockAmplifyModels() */,
 				F7DEB49C2CFEAF2F0018D943 /* ensemble */,
 			);
 			name = ensemble;

@@ -30,7 +30,7 @@ enum SeasonRoute: Hashable {
     @ViewBuilder var destination: some View {
         switch self {
         case .season:
-            SeasonView()
+            SeasonRootView()
         case .program:
             ProgramView()
         }
@@ -44,33 +44,14 @@ struct SeasonNavigationStack: View {
     @EnvironmentObject var state: SignedInState
     
     var body: some View {
-        
         @Bindable var router = router
-        
         NavigationStack(path: $router.seasonRoutes) {
-            VStack {
-                Button("View Program Detail") {
-                    router.seasonRoutes.append(.program)
-                }
-                .navigationDestination(for: SeasonRoute.self) { route in
-                    route.destination
-                        .environmentObject(state)
-                        .navigationBarTitleDisplayMode(.inline)
-                        .navigationTitle(route.navigationTitle)
-                        
-                }
-            }
-            .primaryToolbar(signedInState: state)
+            SeasonRootView()
+                .primaryToolbar(signedInState: state)
         }
     }
 }
 
-struct SeasonView: View {
-    
-    var body: some View {
-        Text("Season View")
-    }
-}
 
 struct ProgramView: View {
     

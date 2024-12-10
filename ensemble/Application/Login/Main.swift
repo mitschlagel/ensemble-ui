@@ -19,8 +19,6 @@ enum Tab: Hashable, Identifiable, CaseIterable {
     case dashboard
     case season
     case ensemble
-    
-    
     var id: Tab { self }
 }
 
@@ -29,11 +27,14 @@ extension Tab {
     @ViewBuilder var label: some View {
         switch self {
         case .dashboard:
-            Label("Dashboard", systemImage: "house")
+            Image(systemName: "house")
+            //Label("Dashboard", systemImage: "house")
         case .season:
-            Label("Season", systemImage: "calendar")
+            Image(systemName: "calendar")
+            //Label("Season", systemImage: "calendar")
         case .ensemble:
-            Label("Ensemble", systemImage: "person.3")
+            Image(systemName: "person.3")
+           // Label("Ensemble", systemImage: "person.3")
         
         }
     }

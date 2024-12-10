@@ -11,25 +11,14 @@ import Amplify
 import Authenticator
 
 struct LoginScreen: View {
+    
     @State private var username = ""
     @State private var password = ""
     
     private var theme = AuthenticatorTheme()
     
     init() {
-        theme.colors.foreground.interactive = .accent
-        theme.colors.background.interactive = .accent
-        theme.colors.foreground.primary = .primaryText
-        
-        theme.components.authenticator.backgroundColor = .background
-        
-        theme.components.button.primary.cornerRadius = 10
-        
-        theme.components.field.backgroundColor = .background
-        
-        theme.components.authenticator.padding.leading = 24
-        theme.components.authenticator.padding.trailing = 24
-        
+        setAuthenticatorTheme()
     }
     
     var body: some View {
@@ -72,11 +61,7 @@ struct LoginScreen: View {
                     }
                 }
                 .padding(.top, 104)
-                .foregroundStyle(LinearGradient(
-                    gradient: Gradient(colors: [.accent, .alwaysAccentDark]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                ))
+                .foregroundStyle(primaryGradient)
             }, footerContent: {
                 Text("© 2024 All Rights Reserved")
                     .foregroundStyle(Color.primaryText)
@@ -89,6 +74,25 @@ struct LoginScreen: View {
         .background(Color.background)
         .ignoresSafeArea()
         
+    }
+    
+    private var primaryGradient: LinearGradient {
+        LinearGradient(
+            gradient: Gradient(colors: [.accent, .alwaysAccentDark]),
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
+    
+    private func setAuthenticatorTheme() {
+        theme.colors.foreground.interactive = .accent
+        theme.colors.background.interactive = .accent
+        theme.colors.foreground.primary = .primaryText
+        theme.components.authenticator.backgroundColor = .background
+        theme.components.button.primary.cornerRadius = 10
+        theme.components.field.backgroundColor = .background
+        theme.components.authenticator.padding.leading = 24
+        theme.components.authenticator.padding.trailing = 24
     }
 }
 
