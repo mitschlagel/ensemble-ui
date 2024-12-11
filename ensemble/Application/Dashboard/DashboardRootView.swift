@@ -21,19 +21,16 @@ struct DashboardRootView: View {
     
     var body: some View {
         VStack {
-            VStack {
-                welcomeMessage
-                /// could this be a carousel of every week????
-                CarouselStack(programs, initialIndex: 0) { program in
-                    programCard(program)
-                }
-                .carouselScale(0.9)
-                
+            welcomeMessage
+            /// could this be a carousel of every week????
+            CarouselStack(programs, initialIndex: 0) { program in
+                programCard(program)
+                    .frame(height: 480)
             }
-            Spacer()
+            .carouselScale(0.9)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.background)
-        .padding()
         .sheet(item: $selectedSheet) { sheet in
             switch sheet {
             case .dress:
@@ -85,7 +82,7 @@ struct DashboardRootView: View {
                 }
                 if !(service == program.services.last) {
                     Divider()
-                        .padding(4)
+                        .padding(2)
                 }
             }
             .font(.caption2)
@@ -103,7 +100,7 @@ struct DashboardRootView: View {
             endRadius: 500
         )
 
-        VStack {
+        VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 Text(program.id)
                     .font(.footnote)
@@ -113,14 +110,17 @@ struct DashboardRootView: View {
                     .font(.callout)
             }
             HStack(spacing: 24) {
+                Spacer()
                 repButton(program)
                 infoButton(.dress, program)
                 infoButton(.location, program)
                 infoButton(.moreInfo, program)
+                Spacer()
             }
-            .padding(.vertical, 16)
+            .padding()
             serviceList(program)
             Spacer()
+            
         }
         .padding(16)
         .foregroundStyle(Color.white)

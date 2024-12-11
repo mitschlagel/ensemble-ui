@@ -68,11 +68,12 @@ struct LoginScreen: View {
                     .padding(.bottom, 32)
             }) { state in
                 MainContainer(selection: .dashboard, state: state)
+                    
             }
             .authenticatorTheme(theme)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.background)
-        .ignoresSafeArea()
         
     }
     

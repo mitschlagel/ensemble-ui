@@ -24,6 +24,8 @@ struct SeasonRootView: View {
                     
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.background)
     }
 }
 
