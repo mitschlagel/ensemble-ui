@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+import ShuffleIt
+
 struct DashboardRootView: View {
     
     @Environment(Router.self) private var router
@@ -15,7 +17,6 @@ struct DashboardRootView: View {
     @State var programs = [Program.program1, Program.program2, Program.program3, Program.program4]
     @State var selectedProgram: Program?
     @State var programIndex: Int = 0
-    
     @State private var selectedSheet: InfoButton?
     
     var body: some View {
@@ -23,16 +24,13 @@ struct DashboardRootView: View {
             VStack {
                 welcomeMessage
                 /// could this be a carousel of every week????
-                CardCarousel(items: $programs,
-                             selection: $selectedProgram,
-                             currentIndex: $programIndex,
-                             edgesOverlap: 40,
-                             itemsMargin: 10) { index, program in
+                CarouselStack(programs, initialIndex: 0) { program in
                     programCard(program)
                 }
-                Spacer()
+                .carouselScale(0.9)
                 
             }
+            Spacer()
         }
         .background(Color.background)
         .padding()
@@ -55,20 +53,20 @@ struct DashboardRootView: View {
     }
     
     @ViewBuilder var welcomeMessage: some View {
-        RoundedRectangle(cornerRadius: 8)
-            .fill(LinearGradient(
-                gradient: Gradient(colors: [.alwaysAccentDark, Color.alwaysAccentLight]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            ))
-            .overlay(
-                VStack(alignment: .leading) {
-                    Text("Good Morning Spencer.")
-                }
-                .foregroundStyle(Color.white)
-                .font(.title2)
+//        RoundedRectangle(cornerRadius: 8)
+//            .fill(LinearGradient(
+//                gradient: Gradient(colors: [.alwaysAccentDark, Color.alwaysAccentLight]),
+//                startPoint: .topLeading,
+//                endPoint: .bottomTrailing
+//            ))
+//            .overlay(
+//                VStack(alignment: .leading) {
+                    Text("Good Morning, here's what's coming up:")
+//                }
+            .foregroundStyle(Color.primaryText)
+                .font(.headline)
                 .fontWeight(.semibold)
-            )
+            //)
             .frame(height: 56)
     }
     
@@ -97,33 +95,37 @@ struct DashboardRootView: View {
     }
     
     @ViewBuilder func programCard(_ program: Program) -> some View {
-        RoundedRectangle(cornerRadius: 8)
-            .fill(program.id_color)
-            .overlay(
-                VStack {
-                    VStack(alignment: .leading) {
-                        Text(program.id)
-                            .font(.footnote)
-                        Text(program.title)
-                            .font(.headline)
-                            .fixedSize(horizontal: false, vertical: true)
-                        Text("\(program.conductor), conductor")
-                            .font(.callout)
-                    }
-                    HStack(spacing: 24) {
-                        repButton(program)
-                        infoButton(.dress, program)
-                        infoButton(.location, program)
-                        infoButton(.moreInfo, program)
-                    }
-                    .padding(.vertical, 16)
-                    serviceList(program)
-                    
-                }
-                .padding(16)
-                .foregroundStyle(Color.white.opacity(0.90))
-                
-            )
+        
+        let radialGrandient = RadialGradient(
+            gradient: Gradient(colors: [program.id_color, program.id_color.opacity(0.50)]),
+            center: .bottomLeading,
+            startRadius: 0,
+            endRadius: 500
+        )
+
+        VStack {
+            VStack(alignment: .leading) {
+                Text(program.id)
+                    .font(.footnote)
+                Text(program.title)
+                    .font(.headline)
+                Text("\(program.conductor), conductor")
+                    .font(.callout)
+            }
+            HStack(spacing: 24) {
+                repButton(program)
+                infoButton(.dress, program)
+                infoButton(.location, program)
+                infoButton(.moreInfo, program)
+            }
+            .padding(.vertical, 16)
+            serviceList(program)
+            Spacer()
+        }
+        .padding(16)
+        .foregroundStyle(Color.white)
+        .background(radialGrandient)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
     @ViewBuilder func repButton(_ program: Program) -> some View {
@@ -133,7 +135,7 @@ struct DashboardRootView: View {
             ZStack {
                 Circle()
                     .frame(width: 48, height: 48)
-                    .foregroundStyle(program.id_color.opacity(0.75))
+                    .foregroundStyle(program.id_color)
                 Image(systemName: "music.note.list")
                 }
             }
@@ -161,7 +163,7 @@ struct DashboardRootView: View {
                 ZStack {
                     Circle()
                         .frame(width: 48, height: 48)
-                        .foregroundStyle(program.id_color.opacity(0.75))
+                        .foregroundStyle(program.id_color)
                     switch type {
                     case .dress:
                         Image(systemName: "tshirt")
