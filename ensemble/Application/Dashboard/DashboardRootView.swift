@@ -208,7 +208,7 @@ enum DressCode {
     }
 }
 
-struct Repertoire: Hashable {
+struct Repertoire: Identifiable, Hashable {
     var id = UUID()
     var composer: String
     var title: String

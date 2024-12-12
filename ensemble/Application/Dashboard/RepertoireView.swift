@@ -12,22 +12,36 @@ struct RepertoireView: View {
     var repertoire: [Repertoire]
     
     var body: some View {
-        List {
-            ForEach(repertoire, id: \.id) { piece in
-                HStack(alignment: .top) {
-                    VStack(alignment: .leading) {
-                        Text(piece.composer)
-                        Text(piece.title)
+        VStack {
+            List {
+                ForEach(repertoire) { piece in
+                    VStack(spacing: 16) {
+                        HStack {
+                            Text(piece.title)
+                                .fontWeight(.semibold)
+                            Spacer()
+                            Text(piece.composer)
+                        }
+                        .font(.subheadline)
+                        HStack {
+                            Text(piece.instrumentation)
+                            Spacer()
+                        }
+                        .font(.footnote)
+                        
                     }
-                    .font(.footnote)
-                    Spacer()
-                    VStack(alignment: .trailing) {
-                        Text(piece.instrumentation)
-                            .font(.caption2)
-                    }
-                    
                 }
             }
+            .scrollContentBackground(.hidden)
+            .listStyle(.grouped)
+            Spacer()
         }
+        .background(Color.background)
+        
+        
     }
+}
+#Preview {
+    RepertoireView(repertoire: Program.program1.repertoire)
+        
 }
