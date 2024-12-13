@@ -23,7 +23,8 @@ struct DashboardRootView: View {
         VStack {
             welcomeMessage
             programCarousel(programs)
-            footerContainer
+            footerContainer(for: selectedProgram)
+                .padding(.horizontal, 16)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.background)
@@ -59,6 +60,7 @@ struct DashboardRootView: View {
                                 )
                         }
                 }
+               // TODO: Need something here to set selectedProgram in order to access sheets and additional views
             }
             .scrollTargetLayout()
         }
@@ -80,19 +82,27 @@ struct DashboardRootView: View {
         .frame(height: 56)
     }
     
-    @ViewBuilder var footerContainer: some View {
-        HStack {
-            Text("hello world")
-        }
-        .foregroundStyle(Color.primaryText)
-        .background(
-            RadialGradient(
-                gradient: Gradient(colors: [Color.alternateDark, Color.alternateDark.opacity(0.50)]),
-                center: .bottomLeading,
-                startRadius: 0,
-                endRadius: 50
+    @ViewBuilder func footerContainer(for program: Program?) -> some View {
+        if let program {
+            VStack {
+                HStack {
+                    Text("More information about the program potentially.")
+                    Spacer()
+                }
+                Spacer()
+            }
+            .padding(16)
+            .foregroundStyle(Color.white)
+            .background(
+                RadialGradient(
+                    gradient: Gradient(colors: [program.id_color, program.id_color.opacity(0.6)]),
+                    center: .bottomLeading,
+                    startRadius: 0,
+                    endRadius: 250
+                )
             )
-        )
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+        }
     }
     
     private var greeting: String {

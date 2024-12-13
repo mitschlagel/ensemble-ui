@@ -77,7 +77,7 @@ struct PrimaryToolbar: ViewModifier {
                     HStack {
                         Text("ensemble")
                             .font(Font.custom("MrDafoe-Regular", size: 40))
-                        /// Only shown if ensemble is pro version
+                        /// Only shown if ensemble is pro version???
                         if true {
                             Text("PRO")
                                 .font(.callout)
