@@ -22,33 +22,8 @@ struct DashboardRootView: View {
     var body: some View {
         VStack {
             welcomeMessage
-            /// could this be a carousel of every week????
-//            CarouselStack(programs, initialIndex: 0) { program in
-//                programCard(program)
-//                    .frame(height: 480)
-//            }
-//            .carouselScale(0.9)
-            ScrollView(.horizontal) {
-                HStack(spacing: 16) {
-                    ForEach(programs, id: \.id) { program in
-                        programCard(program)
-                            .shadow(radius: 5, x: 5, y: 5)
-                            .frame(width: UIScreen.main.bounds.width - 32, height: 500)
-                            .scrollTransition { content, phase in
-                                content
-                                    .opacity(phase.isIdentity ? 1 : 0.75) // Apply opacity animation
-                                    .scaleEffect(y: phase.isIdentity ? 1 : 0.8
-                                    ) // Apply scale animation
-                            }
-                    }
-                }
-                .scrollTargetLayout()
-            }
-            .padding(.top, -16)
-            .scrollIndicatorsFlash(onAppear: true)
-            .contentMargins(16, for: .scrollContent) // Add padding
-            .scrollTargetBehavior(.viewAligned)
-            
+            programCarousel(programs)
+            footerContainer
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.background)
@@ -70,6 +45,29 @@ struct DashboardRootView: View {
         }
     }
     
+    @ViewBuilder func programCarousel(_ programs: [Program]) -> some View {
+        ScrollView(.horizontal) {
+            HStack(spacing: 16) {
+                ForEach(programs, id: \.id) { program in
+                    programCard(program)
+                        .shadow(radius: 5, x: 5, y: 5)
+                        .frame(width: UIScreen.main.bounds.width - 32, height: 500)
+                        .scrollTransition { content, phase in
+                            content
+                                .opacity(phase.isIdentity ? 1 : 0.75)
+                                .scaleEffect(y: phase.isIdentity ? 1 : 0.8
+                                )
+                        }
+                }
+            }
+            .scrollTargetLayout()
+        }
+        .padding(.top, -16)
+        .scrollIndicatorsFlash(onAppear: true)
+        .contentMargins(16, for: .scrollContent) // Add padding
+        .scrollTargetBehavior(.viewAligned)
+    }
+    
     @ViewBuilder var welcomeMessage: some View {
         HStack {
             Text("\(greeting), here's what's coming up:")
@@ -80,6 +78,21 @@ struct DashboardRootView: View {
         .font(.headline)
         .fontWeight(.semibold)
         .frame(height: 56)
+    }
+    
+    @ViewBuilder var footerContainer: some View {
+        HStack {
+            Text("hello world")
+        }
+        .foregroundStyle(Color.primaryText)
+        .background(
+            RadialGradient(
+                gradient: Gradient(colors: [Color.alternateDark, Color.alternateDark.opacity(0.50)]),
+                center: .bottomLeading,
+                startRadius: 0,
+                endRadius: 50
+            )
+        )
     }
     
     private var greeting: String {

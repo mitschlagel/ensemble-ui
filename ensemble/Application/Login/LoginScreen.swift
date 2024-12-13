@@ -77,11 +77,12 @@ struct LoginScreen: View {
         
     }
     
-    private var primaryGradient: LinearGradient {
-        LinearGradient(
-            gradient: Gradient(colors: [.accent, .alwaysAccentDark]),
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
+    private var primaryGradient: RadialGradient {
+        RadialGradient(
+            gradient: Gradient(colors: [.accent, .alwaysAccent]),
+            center: .bottomLeading,
+            startRadius: 0,
+            endRadius: 200
         )
     }
     

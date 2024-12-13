@@ -85,7 +85,12 @@ struct PrimaryToolbar: ViewModifier {
                                 .offset(y: 4)
                         }
                     }
-                    .foregroundStyle(Color.accent)
+                    .foregroundStyle(RadialGradient(
+                        gradient: Gradient(colors: [.accent, .alwaysAccent]),
+                        center: .bottomLeading,
+                        startRadius: 0,
+                        endRadius: 200
+                    ))
                 }
             }
     }
