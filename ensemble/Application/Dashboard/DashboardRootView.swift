@@ -33,16 +33,19 @@ struct DashboardRootView: View {
                     ForEach(programs, id: \.id) { program in
                         programCard(program)
                             .shadow(radius: 5, x: 5, y: 5)
-                            .frame(width: UIScreen.main.bounds.width - 32, height: 600)
+                            .frame(width: UIScreen.main.bounds.width - 32, height: 500)
                             .scrollTransition { content, phase in
                                 content
-                                    .opacity(phase.isIdentity ? 1 : 0.5) // Apply opacity animation
-                                    .scaleEffect(y: phase.isIdentity ? 1 : 0.9) // Apply scale animation
+                                    .opacity(phase.isIdentity ? 1 : 0.75) // Apply opacity animation
+                                    .scaleEffect(y: phase.isIdentity ? 1 : 0.8
+                                    ) // Apply scale animation
                             }
                     }
                 }
                 .scrollTargetLayout()
             }
+            .padding(.top, -16)
+            .scrollIndicatorsFlash(onAppear: true)
             .contentMargins(16, for: .scrollContent) // Add padding
             .scrollTargetBehavior(.viewAligned)
             
@@ -68,21 +71,24 @@ struct DashboardRootView: View {
     }
     
     @ViewBuilder var welcomeMessage: some View {
-//        RoundedRectangle(cornerRadius: 8)
-//            .fill(LinearGradient(
-//                gradient: Gradient(colors: [.alwaysAccentDark, Color.alwaysAccentLight]),
-//                startPoint: .topLeading,
-//                endPoint: .bottomTrailing
-//            ))
-//            .overlay(
-//                VStack(alignment: .leading) {
-                    Text("Good Morning, here's what's coming up:")
-//                }
-            .foregroundStyle(Color.primaryText)
-                .font(.headline)
-                .fontWeight(.semibold)
-            //)
-            .frame(height: 56)
+        HStack {
+            Text("\(greeting), here's what's coming up:")
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .foregroundStyle(Color.primaryText)
+        .font(.headline)
+        .fontWeight(.semibold)
+        .frame(height: 56)
+    }
+    
+    private var greeting: String {
+        let hour = Calendar.current.component(.hour, from: Date())
+        switch hour {
+        case 5..<12: return "Good Morning"
+        case 12..<17: return "Good Afternoon"
+        default: return "Good Evening"
+        }
     }
     
     @ViewBuilder func serviceList(_ program: Program) -> some View {

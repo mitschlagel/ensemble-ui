@@ -11,6 +11,11 @@ struct Season {
     var programs: [Program]
 }
 
+struct Week {
+    var id: String
+    var programs: [Program]
+}
+
 struct Program: Identifiable, Hashable {
     var id: String
     var id_color: Color
