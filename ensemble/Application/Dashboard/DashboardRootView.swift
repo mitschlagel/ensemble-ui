@@ -23,11 +23,29 @@ struct DashboardRootView: View {
         VStack {
             welcomeMessage
             /// could this be a carousel of every week????
-            CarouselStack(programs, initialIndex: 0) { program in
-                programCard(program)
-                    .frame(height: 480)
+//            CarouselStack(programs, initialIndex: 0) { program in
+//                programCard(program)
+//                    .frame(height: 480)
+//            }
+//            .carouselScale(0.9)
+            ScrollView(.horizontal) {
+                HStack(spacing: 16) {
+                    ForEach(programs, id: \.id) { program in
+                        programCard(program)
+                            .shadow(radius: 5, x: 5, y: 5)
+                            .frame(width: UIScreen.main.bounds.width - 32, height: 600)
+                            .scrollTransition { content, phase in
+                                content
+                                    .opacity(phase.isIdentity ? 1 : 0.5) // Apply opacity animation
+                                    .scaleEffect(y: phase.isIdentity ? 1 : 0.9) // Apply scale animation
+                            }
+                    }
+                }
+                .scrollTargetLayout()
             }
-            .carouselScale(0.9)
+            .contentMargins(16, for: .scrollContent) // Add padding
+            .scrollTargetBehavior(.viewAligned)
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.background)
@@ -99,6 +117,8 @@ struct DashboardRootView: View {
             startRadius: 0,
             endRadius: 500
         )
+        
+        
 
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
@@ -189,31 +209,7 @@ struct DashboardRootView: View {
     DashboardRootView()
 }
 
-struct Service: Equatable, Hashable {
-    var id = UUID()
-    var day: String
-    var time: String
-    var location: String
-    var type: String
-}
 
-enum DressCode {
-    case dressBlack
-    
-    var name: String {
-        switch self {
-        case .dressBlack:
-            return "Dress Black"
-        }
-    }
-}
-
-struct Repertoire: Identifiable, Hashable {
-    var id = UUID()
-    var composer: String
-    var title: String
-    var instrumentation: String
-}
 
 
 

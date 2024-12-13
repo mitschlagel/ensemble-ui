@@ -1,5 +1,5 @@
 {
-  "originHash" : "eac33d29056b610d495598f2a75807bcf19e9a88272c3e7a303667e9334cffcb",
+  "originHash" : "fcda9775eff70122bc22d6447347dd6de8d928e44d86106d5aa1ec4960b3df64",
   "pins" : [
     {
       "identity" : "amplify-swift",
@@ -44,15 +44,6 @@
       "state" : {
         "revision" : "c6c1064da9bfccb119a7a8ab9ba636fb3bbfa6f5",
         "version" : "1.0.47"
-      }
-    },
-    {
-      "identity" : "shuffleit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/dscyrescotti/ShuffleIt.git",
-      "state" : {
-        "revision" : "e0e70737c1f32f72aec305036484b737ef9d0467",
-        "version" : "2.1.3"
       }
     },
     {

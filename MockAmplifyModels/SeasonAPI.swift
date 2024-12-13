@@ -1,12 +1,17 @@
 //
-//  Program.swift
+//  SeasonAPI.swift
 //  ensemble
 //
 //  Created by Spencer Jones on 12/10/24.
 //
 import SwiftUI
 
-struct Program: Hashable {
+struct Season {
+    var id: String
+    var programs: [Program]
+}
+
+struct Program: Identifiable, Hashable {
     var id: String
     var id_color: Color
     var title: String
@@ -133,3 +138,28 @@ struct Program: Hashable {
 }
 
 
+struct Service: Equatable, Hashable {
+    var id = UUID()
+    var day: String
+    var time: String
+    var location: String
+    var type: String
+}
+
+enum DressCode {
+    case dressBlack
+    
+    var name: String {
+        switch self {
+        case .dressBlack:
+            return "Dress Black"
+        }
+    }
+}
+
+struct Repertoire: Identifiable, Hashable {
+    var id = UUID()
+    var composer: String
+    var title: String
+    var instrumentation: String
+}

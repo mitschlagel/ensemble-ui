@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F76359DB2D094B15008F3781 /* ShuffleIt in Frameworks */ = {isa = PBXBuildFile; productRef = F76359DA2D094B15008F3781 /* ShuffleIt */; };
 		F787E5FF2CFFE94A005A2953 /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = F787E5FE2CFFE94A005A2953 /* AWSCognitoAuthPlugin */; };
 		F7A17BD72D04048000ABDE7C /* Authenticator in Frameworks */ = {isa = PBXBuildFile; productRef = F7A17BD62D04048000ABDE7C /* Authenticator */; };
 		F7A17BDD2D05558C00ABDE7C /* amplify_outputs.json in Resources */ = {isa = PBXBuildFile; fileRef = F7A17BDC2D05558C00ABDE7C /* amplify_outputs.json */; };
@@ -80,7 +79,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F76359DB2D094B15008F3781 /* ShuffleIt in Frameworks */,
 				F7A17BD72D04048000ABDE7C /* Authenticator in Frameworks */,
 				F7DEB4D02CFEB3940018D943 /* AWSAPIPlugin in Frameworks */,
 				F7DEB4CE2CFEB38D0018D943 /* Amplify in Frameworks */,
@@ -160,7 +158,6 @@
 				F7DEB4CF2CFEB3940018D943 /* AWSAPIPlugin */,
 				F787E5FE2CFFE94A005A2953 /* AWSCognitoAuthPlugin */,
 				F7A17BD62D04048000ABDE7C /* Authenticator */,
-				F76359DA2D094B15008F3781 /* ShuffleIt */,
 			);
 			productName = ensemble;
 			productReference = F7DEB49A2CFEAF2F0018D943 /* ensemble.app */;
@@ -247,7 +244,6 @@
 			packageReferences = (
 				F7DEB4CB2CFEB2A90018D943 /* XCRemoteSwiftPackageReference "amplify-swift" */,
 				F7A17BD52D04048000ABDE7C /* XCRemoteSwiftPackageReference "amplify-ui-swift-authenticator" */,
-				F76359D92D094B15008F3781 /* XCRemoteSwiftPackageReference "ShuffleIt" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F7DEB49B2CFEAF2F0018D943 /* Products */;
@@ -617,14 +613,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F76359D92D094B15008F3781 /* XCRemoteSwiftPackageReference "ShuffleIt" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/dscyrescotti/ShuffleIt.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
 		F7A17BD52D04048000ABDE7C /* XCRemoteSwiftPackageReference "amplify-ui-swift-authenticator" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/aws-amplify/amplify-ui-swift-authenticator.git";
@@ -644,11 +632,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F76359DA2D094B15008F3781 /* ShuffleIt */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F76359D92D094B15008F3781 /* XCRemoteSwiftPackageReference "ShuffleIt" */;
-			productName = ShuffleIt;
-		};
 		F787E5FE2CFFE94A005A2953 /* AWSCognitoAuthPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F7DEB4CB2CFEB2A90018D943 /* XCRemoteSwiftPackageReference "amplify-swift" */;
