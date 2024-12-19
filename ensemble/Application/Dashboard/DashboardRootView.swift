@@ -94,14 +94,7 @@ struct DashboardRootView: View {
             }
             .padding(16)
             .foregroundStyle(Color.white)
-            .background(
-                RadialGradient(
-                    gradient: Gradient(colors: [program.id_color, program.id_color.opacity(0.6)]),
-                    center: .bottomLeading,
-                    startRadius: 0,
-                    endRadius: 250
-                )
-            )
+            .background(Gradients.programRadialGradient(program.id_color))
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }

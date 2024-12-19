@@ -10,6 +10,8 @@ import SwiftUI
 struct ServicesView: View {
     
     var program: Program
+    @State private var showingInfoSheet: Bool = false
+    @State private var selectedService: Service?
     
     var body: some View {
         VStack {
@@ -27,7 +29,7 @@ struct ServicesView: View {
                         }
                         Spacer()
                         ActionButton(.info, program) {
-                            //TODO: show something
+                            showInfoSheet(for: service)
                         }
                     }
                     .padding()
@@ -42,7 +44,17 @@ struct ServicesView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.background)
+        .sheet(isPresented: $showingInfoSheet) {
+            Text(selectedService?.type ?? "")
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+        }
         
+    }
+    
+    private func showInfoSheet(for service: Service) {
+        selectedService = service
+        showingInfoSheet = true
     }
 }
 

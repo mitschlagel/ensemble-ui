@@ -43,14 +43,11 @@ struct ActionButton: View {
                 }
                 
             }
-        }
-        )
+        })
         .navigationDestination(for: DashboardRoute.self) { route in
             route.destination
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle(route.navigationTitle)
-            
         }
-        
     }
 }

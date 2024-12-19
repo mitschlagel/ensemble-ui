@@ -33,7 +33,7 @@ struct RepertoireView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .listStyle(.grouped)
+            .listStyle(.insetGrouped)
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
