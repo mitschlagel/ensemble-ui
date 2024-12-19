@@ -17,7 +17,7 @@ struct DashboardRootView: View {
     @State var programs = [Program.program1, Program.program2, Program.program3, Program.program4]
     @State var selectedProgram: Program?
     @State var programIndex: Int = 0
-    @State private var selectedSheet: InfoButton?
+    @State private var selectedSheet: SheetButton?
     
     var body: some View {
         VStack {
@@ -30,7 +30,7 @@ struct DashboardRootView: View {
         .background(Color.background)
         .sheet(item: $selectedSheet) { sheet in
             switch sheet {
-            case .dress:
+            case .services:
                 Text("Dress Code: \(selectedProgram?.dress.name ?? "")")
                     .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
@@ -60,7 +60,6 @@ struct DashboardRootView: View {
                                 )
                         }
                 }
-               // TODO: Need something here to set selectedProgram in order to access sheets and additional views
             }
             .scrollTargetLayout()
         }
@@ -140,12 +139,12 @@ struct DashboardRootView: View {
     
     @ViewBuilder func programCard(_ program: Program) -> some View {
         
-        let radialGrandient = RadialGradient(
-            gradient: Gradient(colors: [program.id_color, program.id_color.opacity(0.50)]),
-            center: .bottomLeading,
-            startRadius: 0,
-            endRadius: 500
-        )
+//        let radialGrandient = RadialGradient(
+//            gradient: Gradient(colors: [program.id_color, program.id_color.opacity(0.50)]),
+//            center: .bottomLeading,
+//            startRadius: 0,
+//            endRadius: 500
+//        )
         
         
 
@@ -160,10 +159,10 @@ struct DashboardRootView: View {
             }
             HStack(spacing: 24) {
                 Spacer()
-                repButton(program)
-                infoButton(.dress, program)
-                infoButton(.location, program)
-                infoButton(.moreInfo, program)
+                navigationButton(.rep, program)
+                navigationButton(.services, program)
+                sheetButton(.location, program)
+                sheetButton(.moreInfo, program)
                 Spacer()
             }
             .padding()
@@ -173,19 +172,31 @@ struct DashboardRootView: View {
         }
         .padding(16)
         .foregroundStyle(Color.white)
-        .background(radialGrandient)
+        .background(Gradients.programRadialGradient(program.id_color))
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
-    @ViewBuilder func repButton(_ program: Program) -> some View {
+    
+    @ViewBuilder func navigationButton(_ type: NavigationButton, _ program: Program) -> some View {
         Button(action: {
-            router.dashboardRoutes.append(.repertoire(program.repertoire))
+            switch type {
+            case .rep:
+                router.dashboardRoutes.append(.repertoire(program.repertoire))
+            case .services:
+                router.dashboardRoutes.append(.services(program))
+            }
         }, label: {
             ZStack {
                 Circle()
                     .frame(width: 48, height: 48)
                     .foregroundStyle(program.id_color)
-                Image(systemName: "music.note.list")
+                switch type {
+                case .rep:
+                    Image(systemName: "music.note.list")
+                case .services:
+                    Image(systemName: "calendar")
+                }
+                
                 }
             }
         )
@@ -196,17 +207,20 @@ struct DashboardRootView: View {
                 
         }
     }
+    enum NavigationButton {
+        case rep, services
+    }
     
-    @ViewBuilder func infoButton(_ type: InfoButton, _ program: Program) -> some View {
+    @ViewBuilder func sheetButton(_ type: SheetButton, _ program: Program) -> some View {
         
             Button(action: {
                 switch type {
-                case .dress:
-                    selectedSheet = .dress
                 case .location:
                     selectedSheet = .location
                 case .moreInfo:
                     selectedSheet = .moreInfo
+                case .services:
+                    selectedSheet = .services
                 }
             }, label: {
                 ZStack {
@@ -214,8 +228,8 @@ struct DashboardRootView: View {
                         .frame(width: 48, height: 48)
                         .foregroundStyle(program.id_color)
                     switch type {
-                    case .dress:
-                        Image(systemName: "tshirt")
+                    case .services:
+                        Image(systemName: "calendar")
                     case .location:
                         Image(systemName: "mappin.and.ellipse")
                     case .moreInfo:
@@ -228,10 +242,10 @@ struct DashboardRootView: View {
         
     }
     
-    enum InfoButton: Identifiable {
-        case dress, location, moreInfo
+    enum SheetButton: Identifiable {
+        case services, location, moreInfo
 
-        var id: InfoButton { self }
+        var id: SheetButton { self }
     }}
 
 #Preview {

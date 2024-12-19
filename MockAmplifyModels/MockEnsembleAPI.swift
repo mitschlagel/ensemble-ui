@@ -1,19 +1,21 @@
 //
-//  SeasonAPI.swift
+//  MockEnsembleAPI.swift
 //  ensemble
 //
 //  Created by Spencer Jones on 12/10/24.
 //
 import SwiftUI
 
-struct Season {
+struct Ensemble {
     var id: String
+    var name: String
     var programs: [Program]
-}
-
-struct Week {
-    var id: String
-    var programs: [Program]
+    
+    public static var fake1: Ensemble {
+        return Ensemble(id: "000001",
+                        name: "Omaha Symphony Association",
+                        programs: [Program.program1, Program.program2, Program.program3, Program.program4])
+    }
 }
 
 struct Program: Identifiable, Hashable {
@@ -27,10 +29,12 @@ struct Program: Identifiable, Hashable {
     var venueAddress: String
     var personnel: [String: String]?
     var dress: DressCode
+    var startDate: String
+    var endDate: String?
     var services: [Service]
     
     public static let program1 = Program(
-        id: "LIVE05",
+        id: "LIVEXMAS",
         id_color: Color.alwaysAccentDark,
         title: "Physicians Mutual Omaha Symphony Christmas Celebration 2024",
         conductor: "Ernest Richardson",
@@ -56,6 +60,8 @@ struct Program: Identifiable, Hashable {
         venueAddress: "1200 Douglas St., Omaha, NE 68102",
         personnel: nil, // Or provide a dictionary if needed
         dress: .dressBlack,
+        startDate: "2024-12-10",
+        endDate: "2024-12-15",
         services: [
             Service(day: "Tuesday, Dec 10", time: "7:00 PM - 9:30 PM", location: "HPAC", type: "Rehearsal - Various"),
             Service(day: "Wednesday, Dec 11", time: "7:00 PM - 9:30 PM", location: "HPAC", type: "Rehearsal - Various"),
@@ -85,6 +91,8 @@ struct Program: Identifiable, Hashable {
         venueAddress: "881 7th Ave, New York, NY 10019",
         personnel: nil,
         dress: .dressBlack,
+        startDate: "2025-01-10",
+        endDate: "2025-01-12",
         services: [
             Service(day: "Friday, Jan 10", time: "10:00 AM - 12:00 PM", location: "Carnegie Hall", type: "Rehearsal - Mozart & Beethoven"),
             Service(day: "Saturday, Jan 11", time: "10:00 AM - 12:30 PM", location: "Carnegie Hall", type: "Rehearsal - Brahms"),
@@ -109,6 +117,8 @@ struct Program: Identifiable, Hashable {
         venueAddress: "301 Massachusetts Ave, Boston, MA 02115",
         personnel: nil,
         dress: .dressBlack,
+        startDate: "2025-02-20",
+        endDate: "2025-02-22",
         services: [
             Service(day: "Thursday, Feb 20", time: "7:00 PM - 9:30 PM", location: "Symphony Hall", type: "Rehearsal"),
             Service(day: "Friday, Feb 21", time: "7:00 PM - 9:00 PM", location: "Symphony Hall", type: "Sound Check"),
@@ -134,6 +144,8 @@ struct Program: Identifiable, Hashable {
         venueAddress: "1941 Broadway, New York, NY 10023",
         personnel: nil,
         dress: .dressBlack,
+        startDate: "2025-03-05",
+        endDate: "2025-03-05",
         services: [
             Service(day: "Wednesday, March 5", time: "1:00 PM - 3:00 PM", location: "Alice Tully Hall", type: "Rehearsal"),
             Service(day: "Thursday, March 6", time: "7:30 PM", location: "Alice Tully Hall", type: "Performance")
@@ -143,7 +155,7 @@ struct Program: Identifiable, Hashable {
 }
 
 
-struct Service: Equatable, Hashable {
+struct Service: Identifiable, Equatable, Hashable {
     var id = UUID()
     var day: String
     var time: String
