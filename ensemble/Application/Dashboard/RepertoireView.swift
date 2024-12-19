@@ -36,6 +36,7 @@ struct RepertoireView: View {
             .listStyle(.grouped)
             Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.background)
         
         

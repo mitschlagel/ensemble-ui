@@ -17,7 +17,7 @@ struct DashboardRootView: View {
     @State var programs = [Program.program1, Program.program2, Program.program3, Program.program4]
     @State var selectedProgram: Program?
     @State var programIndex: Int = 0
-    @State private var selectedSheet: SheetButton?
+    @State private var actionSheet: ActionButtonType?
     
     var body: some View {
         VStack {
@@ -28,8 +28,8 @@ struct DashboardRootView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.background)
-        .sheet(item: $selectedSheet) { sheet in
-            switch sheet {
+        .sheet(item: $actionSheet) { action in
+            switch action {
             case .services:
                 Text("Dress Code: \(selectedProgram?.dress.name ?? "")")
                     .presentationDetents([.medium, .large])
@@ -38,10 +38,13 @@ struct DashboardRootView: View {
                 Text("Location: \(selectedProgram?.venueName ?? "")\n\(selectedProgram?.venueAddress ?? "")")
                     .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
-            case .moreInfo:
+            case .info:
                 Text("More info sheet")
                     .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
+            default:
+                Text("Error")
+            // TODO: handle this more elegantly
             }
         }
     }
@@ -56,8 +59,7 @@ struct DashboardRootView: View {
                         .scrollTransition { content, phase in
                             content
                                 .opacity(phase.isIdentity ? 1 : 0.75)
-                                .scaleEffect(y: phase.isIdentity ? 1 : 0.8
-                                )
+                                .scaleEffect(y: phase.isIdentity ? 1 : 0.8)
                         }
                 }
             }
@@ -133,21 +135,12 @@ struct DashboardRootView: View {
             }
             .font(.caption2)
             .foregroundStyle(Color.white)
-                
+            
         }
     }
     
     @ViewBuilder func programCard(_ program: Program) -> some View {
         
-//        let radialGrandient = RadialGradient(
-//            gradient: Gradient(colors: [program.id_color, program.id_color.opacity(0.50)]),
-//            center: .bottomLeading,
-//            startRadius: 0,
-//            endRadius: 500
-//        )
-        
-        
-
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 Text(program.id)
@@ -159,10 +152,18 @@ struct DashboardRootView: View {
             }
             HStack(spacing: 24) {
                 Spacer()
-                navigationButton(.rep, program)
-                navigationButton(.services, program)
-                sheetButton(.location, program)
-                sheetButton(.moreInfo, program)
+                ActionButton(.rep, program) {
+                    router.dashboardRoutes.append(.repertoire(program.repertoire))
+                }
+                ActionButton(.services, program) {
+                    router.dashboardRoutes.append(.services(program))
+                }
+                ActionButton(.location, program) {
+                    actionSheet = .location
+                }
+                ActionButton(.info, program) {
+                    actionSheet = .info
+                }
                 Spacer()
             }
             .padding()
@@ -175,78 +176,7 @@ struct DashboardRootView: View {
         .background(Gradients.programRadialGradient(program.id_color))
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
-    
-    
-    @ViewBuilder func navigationButton(_ type: NavigationButton, _ program: Program) -> some View {
-        Button(action: {
-            switch type {
-            case .rep:
-                router.dashboardRoutes.append(.repertoire(program.repertoire))
-            case .services:
-                router.dashboardRoutes.append(.services(program))
-            }
-        }, label: {
-            ZStack {
-                Circle()
-                    .frame(width: 48, height: 48)
-                    .foregroundStyle(program.id_color)
-                switch type {
-                case .rep:
-                    Image(systemName: "music.note.list")
-                case .services:
-                    Image(systemName: "calendar")
-                }
-                
-                }
-            }
-        )
-        .navigationDestination(for: DashboardRoute.self) { route in
-            route.destination
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle(route.navigationTitle)
-                
-        }
-    }
-    enum NavigationButton {
-        case rep, services
-    }
-    
-    @ViewBuilder func sheetButton(_ type: SheetButton, _ program: Program) -> some View {
-        
-            Button(action: {
-                switch type {
-                case .location:
-                    selectedSheet = .location
-                case .moreInfo:
-                    selectedSheet = .moreInfo
-                case .services:
-                    selectedSheet = .services
-                }
-            }, label: {
-                ZStack {
-                    Circle()
-                        .frame(width: 48, height: 48)
-                        .foregroundStyle(program.id_color)
-                    switch type {
-                    case .services:
-                        Image(systemName: "calendar")
-                    case .location:
-                        Image(systemName: "mappin.and.ellipse")
-                    case .moreInfo:
-                        Image(systemName: "info")
-                    }
-                }
-                .font(.headline)
-            })
-        
-        
-    }
-    
-    enum SheetButton: Identifiable {
-        case services, location, moreInfo
-
-        var id: SheetButton { self }
-    }}
+}
 
 #Preview {
     DashboardRootView()

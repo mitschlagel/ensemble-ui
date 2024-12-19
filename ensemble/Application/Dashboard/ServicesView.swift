@@ -13,29 +13,35 @@ struct ServicesView: View {
     
     var body: some View {
         VStack {
-            ForEach(program.services) { service in
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(service.day)
-                        Text(service.type)
+            VStack {
+                ForEach(program.services) { service in
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(service.day)
+                            Text(service.type)
+                        }
+                        Spacer()
+                        VStack(alignment: .leading) {
+                            Text(service.time)
+                            Text(service.location)
+                        }
+                        Spacer()
+                        ActionButton(.info, program) {
+                            //TODO: show something
+                        }
                     }
-                    Spacer()
-                    VStack(alignment: .leading) {
-                        Text(service.time)
-                        Text(service.location)
-                    }
-                    Spacer()
+                    .padding()
+                    .foregroundStyle(Color.white)
+                    .font(.caption)
+                    .background(Gradients.programRadialGradient(program.id_color))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
-                .padding()
-                .foregroundStyle(Color.white)
-                .font(.callout)
-                .background(program.id_color.opacity(0.6))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                Spacer()
             }
-            Spacer()
+            .padding()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.background)
-        .padding()
         
     }
 }
