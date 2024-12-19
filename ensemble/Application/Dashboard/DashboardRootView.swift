@@ -111,7 +111,7 @@ struct DashboardRootView: View {
     
     @ViewBuilder func programCard(_ program: Program) -> some View {
         
-        HStack {
+        HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 8) {
                 VStack(alignment: .leading) {
                     Text(program.id)
@@ -123,11 +123,12 @@ struct DashboardRootView: View {
                     Text(program.title)
                         .font(.headline)
                         .fixedSize(horizontal: false, vertical: true)
-                    Text("\(program.conductor), conductor")
-                        .font(.footnote)
-                    ForEach(program.guest, id: \.self) { guest in
-                        Text(guest).font(.caption)
-                    }
+                    
+                }
+                Text("\(program.conductor), conductor")
+                    .font(.footnote)
+                ForEach(program.guest, id: \.self) { guest in
+                    Text(guest).font(.caption)
                 }
             }
             .padding(.trailing, 16)
