@@ -24,7 +24,7 @@ public struct Gradients {
             gradient: Gradient(colors: [programColor, programColor.opacity(0.50)]),
             center: .bottomLeading,
             startRadius: 0,
-            endRadius: 500
+            endRadius: 400
         )
     }
     

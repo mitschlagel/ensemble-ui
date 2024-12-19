@@ -39,11 +39,8 @@ struct Program: Identifiable, Hashable {
         title: "Physicians Mutual Omaha Symphony Christmas Celebration 2024",
         conductor: "Ernest Richardson",
         guest: [
-            "Yo-Yo Ma",
-            "Lang Lang",
-            "Gustavo Dudamel",
-            "John Williams",
-            "Esperanza Spalding"
+            "Yo-Yo Ma, cello",
+            "Lang Lang, piano"
         ],
         repertoire: [
             Repertoire(composer: "Trad.", title: "Silent Night", instrumentation: "2222 - 4231 1P str"),
@@ -60,8 +57,8 @@ struct Program: Identifiable, Hashable {
         venueAddress: "1200 Douglas St., Omaha, NE 68102",
         personnel: nil, // Or provide a dictionary if needed
         dress: .dressBlack,
-        startDate: "2024-12-10",
-        endDate: "2024-12-15",
+        startDate: "December 10, 2024",
+        endDate: "December 15, 2024",
         services: [
             Service(day: "Tuesday, Dec 10", time: "7:00 PM - 9:30 PM", location: "HPAC", type: "Rehearsal - Various"),
             Service(day: "Wednesday, Dec 11", time: "7:00 PM - 9:30 PM", location: "HPAC", type: "Rehearsal - Various"),
@@ -80,7 +77,7 @@ struct Program: Identifiable, Hashable {
         title: "Beethoven's Emperor Concerto",
         conductor: "Carlos Miguel Prieto",
         guest: [
-            "Yefim Bronfman", // Pianist
+            "Yefim Bronfman, piano", // Pianist
         ],
         repertoire: [
             Repertoire(composer: "Mozart", title: "Overture to Don Giovanni", instrumentation: "2222 - 2200 - timp - str"),
@@ -91,8 +88,8 @@ struct Program: Identifiable, Hashable {
         venueAddress: "881 7th Ave, New York, NY 10019",
         personnel: nil,
         dress: .dressBlack,
-        startDate: "2025-01-10",
-        endDate: "2025-01-12",
+        startDate: "January 10, 2025",
+        endDate: "January 12, 2025",
         services: [
             Service(day: "Friday, Jan 10", time: "10:00 AM - 12:00 PM", location: "Carnegie Hall", type: "Rehearsal - Mozart & Beethoven"),
             Service(day: "Saturday, Jan 11", time: "10:00 AM - 12:30 PM", location: "Carnegie Hall", type: "Rehearsal - Brahms"),
@@ -106,7 +103,7 @@ struct Program: Identifiable, Hashable {
         title: "A Night at the Movies",
         conductor: "Thomas Wilkins",
         guest: [
-            "Cynthia Erivo", // Singer and actress
+            "Cynthia Erivo, lyric soprano", // Singer and actress
         ],
         repertoire: [
             Repertoire(composer: "John Williams", title: "Suite from Star Wars", instrumentation: "3[1.2.pic]2+22 - 4331 - timp, perc, hp, str"),
@@ -117,8 +114,8 @@ struct Program: Identifiable, Hashable {
         venueAddress: "301 Massachusetts Ave, Boston, MA 02115",
         personnel: nil,
         dress: .dressBlack,
-        startDate: "2025-02-20",
-        endDate: "2025-02-22",
+        startDate: "February 20, 2025",
+        endDate: "February 22, 2025",
         services: [
             Service(day: "Thursday, Feb 20", time: "7:00 PM - 9:30 PM", location: "Symphony Hall", type: "Rehearsal"),
             Service(day: "Friday, Feb 21", time: "7:00 PM - 9:00 PM", location: "Symphony Hall", type: "Sound Check"),
@@ -132,9 +129,9 @@ struct Program: Identifiable, Hashable {
         title: "An Evening of Schubert and Brahms",
         conductor: "Billy Bob Thornton", // No conductor for this chamber music program
         guest: [
-            "Pinchas Zukerman", // Violinist
-            "Amanda Forsyth", // Cellist
-            "Angela Hewitt", // Pianist
+            "Pinchas Zukerman, violin", // Violinist
+            "Amanda Forsyth, cello", // Cellist
+            "Angela Hewitt, piano", // Pianist
         ],
         repertoire: [
             Repertoire(composer: "Schubert", title: "Piano Trio No. 1 in B-flat major, D. 898", instrumentation: "Violin, cello, piano"),
@@ -144,8 +141,8 @@ struct Program: Identifiable, Hashable {
         venueAddress: "1941 Broadway, New York, NY 10023",
         personnel: nil,
         dress: .dressBlack,
-        startDate: "2025-03-05",
-        endDate: "2025-03-05",
+        startDate: "March 5, 2025",
+        endDate: "March 6, 2025",
         services: [
             Service(day: "Wednesday, March 5", time: "1:00 PM - 3:00 PM", location: "Alice Tully Hall", type: "Rehearsal"),
             Service(day: "Thursday, March 6", time: "7:30 PM", location: "Alice Tully Hall", type: "Performance")

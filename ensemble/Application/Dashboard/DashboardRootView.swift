@@ -25,6 +25,7 @@ struct DashboardRootView: View {
             programCarousel(programs)
             footerContainer(for: selectedProgram)
                 .padding(.horizontal, 16)
+            Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.background)
@@ -55,7 +56,7 @@ struct DashboardRootView: View {
                 ForEach(programs, id: \.id) { program in
                     programCard(program)
                         .shadow(radius: 5, x: 5, y: 5)
-                        .frame(width: UIScreen.main.bounds.width - 32, height: 500)
+                        .frame(width: UIScreen.main.bounds.width - 32)
                         .scrollTransition { content, phase in
                             content
                                 .opacity(phase.isIdentity ? 1 : 0.75)
@@ -108,61 +109,40 @@ struct DashboardRootView: View {
         }
     }
     
-    @ViewBuilder func serviceList(_ program: Program) -> some View {
-        ForEach(program.services, id: \.id) { service in
-            VStack() {
-                HStack {
-                    Text(service.day)
-                    Spacer()
-                    Text(service.time)
-                }
-                HStack {
-                    Text(service.type)
-                    Spacer()
-                    Text(service.location)
-                }
-                if !(service == program.services.last) {
-                    Divider()
-                        .padding(2)
-                }
-            }
-            .font(.caption2)
-            .foregroundStyle(Color.white)
-            
-        }
-    }
-    
     @ViewBuilder func programCard(_ program: Program) -> some View {
         
-        VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
-                Text(program.id)
-                    .font(.footnote)
-                Text(program.title)
-                    .font(.headline)
-                Text("\(program.conductor), conductor")
-                    .font(.callout)
+        HStack {
+            VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading) {
+                    Text(program.id)
+                        .fontWeight(.bold)
+                    Text("\(program.startDate) \(program.endDate != nil ? "-" : "") \(program.endDate ?? "")")
+                }
+                .font(.footnote)
+                VStack(alignment: .leading) {
+                    Text(program.title)
+                        .font(.headline)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text("\(program.conductor), conductor")
+                        .font(.footnote)
+                    ForEach(program.guest, id: \.self) { guest in
+                        Text(guest).font(.caption)
+                    }
+                }
             }
-            HStack(spacing: 24) {
-                Spacer()
+            .padding(.trailing, 16)
+            Spacer()
+            VStack(spacing: 16) {
                 ActionButton(.rep, program) {
                     router.dashboardRoutes.append(.repertoire(program.repertoire))
                 }
                 ActionButton(.services, program) {
                     router.dashboardRoutes.append(.services(program))
                 }
-                ActionButton(.location, program) {
-                    actionSheet = .location
-                }
                 ActionButton(.info, program) {
                     actionSheet = .info
                 }
-                Spacer()
             }
-            .padding()
-            serviceList(program)
-            Spacer()
-            
         }
         .padding(16)
         .foregroundStyle(Color.white)
