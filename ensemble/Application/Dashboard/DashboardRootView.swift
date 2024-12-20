@@ -22,7 +22,8 @@ struct DashboardRootView: View {
     var body: some View {
         VStack {
             welcomeMessage
-            programCarousel(programs)
+            // programCarousel(programs)
+            programStack(programs)
             footerContainer(for: selectedProgram)
                 .padding(.horizontal, 16)
             Spacer()
@@ -50,6 +51,23 @@ struct DashboardRootView: View {
         }
     }
     
+    @ViewBuilder func programStack(_ programs: [Program]) -> some View {
+        ScrollView {
+            VStack {
+                ForEach(programs, id: \.id) { program in
+                    programCard(program)
+                        .shadow(radius: 5, x: 5, y: 5)
+                        .padding(.vertical, 8)
+                        .frame(width: UIScreen.main.bounds.width - 32)
+                        .scrollTransition { content, phase in
+                            content.opacity(phase.isIdentity ? 1 : 0.2)
+                        }
+                }
+            }
+        }
+        .padding(.top, -16)
+    }
+    
     @ViewBuilder func programCarousel(_ programs: [Program]) -> some View {
         ScrollView(.horizontal) {
             HStack(spacing: 16) {
@@ -74,7 +92,7 @@ struct DashboardRootView: View {
     
     @ViewBuilder var welcomeMessage: some View {
         HStack {
-            Text("\(greeting), here's what's coming up:")
+            Text("\(greeting), Spencer.")
             Spacer()
         }
         .padding(.horizontal, 16)
@@ -86,17 +104,19 @@ struct DashboardRootView: View {
     
     @ViewBuilder func footerContainer(for program: Program?) -> some View {
         if let program {
-            VStack {
-                HStack {
-                    Text("More information about the program potentially.")
-                    Spacer()
+            RoundedRectangle(cornerRadius: 8)
+                .fill(.ultraThinMaterial)
+                .overlay {
+                    VStack {
+                        HStack {
+                            Text("More information about the program potentially.")
+                            Spacer()
+                        }
+                        Spacer()
+                    }
                 }
-                Spacer()
-            }
-            .padding(16)
-            .foregroundStyle(Color.white)
-            .background(Gradients.programRadialGradient(program.id_color))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+                .padding(16)
+                .foregroundStyle(Color.white)
         }
     }
     
