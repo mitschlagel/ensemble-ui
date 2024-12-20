@@ -139,6 +139,7 @@ struct DashboardRootView: View {
                     Text("\(program.startDate) \(program.endDate != nil ? "-" : "") \(program.endDate ?? "")")
                 }
                 .font(.footnote)
+                .padding(.bottom, 8)
                 VStack(alignment: .leading) {
                     Text(program.title)
                         .font(.headline)
