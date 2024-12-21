@@ -153,6 +153,9 @@ struct DashboardRootView: View {
                 }
             }
             .padding(.trailing, 16)
+            .onTapGesture {
+                router.dashboardRoutes.append(.program(program))
+            }
             Spacer()
             VStack(spacing: 16) {
                 ActionButton(.rep, program) {

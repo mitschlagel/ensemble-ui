@@ -16,6 +16,7 @@ enum DashboardRoute: Equatable, Hashable {
     }
     
     case dashboardRoot
+    case program(Program)
     case repertoire([Repertoire])
     case services(Program)
     
@@ -23,6 +24,8 @@ enum DashboardRoute: Equatable, Hashable {
         switch self {
         case .dashboardRoot:
             return "Dashboard"
+        case .program(let program):
+            return program.title
         case .repertoire:
             return "Repertoire"
         case .services:
@@ -34,6 +37,8 @@ enum DashboardRoute: Equatable, Hashable {
         switch self {
         case .dashboardRoot:
             DashboardRootView()
+        case .program(let program):
+            ProgramView(program)
         case .repertoire(let repertoire):
             RepertoireView(repertoire: repertoire)
         case .services(let program):
@@ -51,6 +56,9 @@ enum DashboardRoute: Equatable, Hashable {
             case .services(let services):
                 hasher.combine(2)
                 hasher.combine(services)
+            case .program(let program):
+                hasher.combine(3)
+                hasher.combine(program)
             }
         }
 }

@@ -11,11 +11,7 @@ import Authenticator
 
 enum SeasonRoute: Hashable {
     case season
-    case program
-//    case service
-//    case repertoire
-//    case location
-//    case personnel
+    case program(Program)
     
     var navigationTitle: String {
         switch self {
@@ -31,8 +27,8 @@ enum SeasonRoute: Hashable {
         switch self {
         case .season:
             SeasonRootView()
-        case .program:
-            ProgramView()
+        case .program(let program):
+            ProgramView(program)
         }
     }
 }
@@ -48,16 +44,6 @@ struct SeasonNavigationStack: View {
         NavigationStack(path: $router.seasonRoutes) {
             SeasonRootView()
                 .primaryToolbar(signedInState: state)
-        }
-    }
-}
-
-
-struct ProgramView: View {
-    
-    var body: some View {
-        VStack {
-            Text("Program View")
         }
     }
 }

@@ -14,15 +14,7 @@ struct SeasonRootView: View {
     
     var body: some View {
         VStack {
-            Button("View Program Detail") {
-                router.seasonRoutes.append(.program)
-            }
-            .navigationDestination(for: SeasonRoute.self) { route in
-                route.destination
-                    .navigationBarTitleDisplayMode(.inline)
-                    .navigationTitle(route.navigationTitle)
-                    
-            }
+            Text("Season Root View")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.background)
