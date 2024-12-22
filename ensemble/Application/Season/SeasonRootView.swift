@@ -15,7 +15,7 @@ struct SeasonRootView: View {
     
     var body: some View {
         VStack {
-            Text("Season Root View")
+            CalendarView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.background)
