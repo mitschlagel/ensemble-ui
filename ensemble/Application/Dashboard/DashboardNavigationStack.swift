@@ -25,7 +25,7 @@ enum DashboardRoute: Equatable, Hashable {
         case .dashboardRoot:
             return "Dashboard"
         case .program(let program):
-            return program.title
+            return "\(program.id): \(program.title)"
         case .repertoire:
             return "Repertoire"
         case .services:

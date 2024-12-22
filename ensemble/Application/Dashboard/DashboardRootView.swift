@@ -14,7 +14,7 @@ struct DashboardRootView: View {
     
     @Environment(Router.self) private var router
     
-    @State var programs = [Program.program1, Program.program2, Program.program3, Program.program4]
+    @State var programs = Program.programs
     @State var selectedProgram: Program?
     @State var programIndex: Int = 0
     @State private var actionSheet: ActionButtonType?
