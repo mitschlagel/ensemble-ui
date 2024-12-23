@@ -43,6 +43,6 @@ struct RepertoireView: View {
     }
 }
 #Preview {
-    RepertoireView(repertoire: Program.program1.repertoire)
+    RepertoireView(repertoire: Program.programs.first!.repertoire)
         
 }

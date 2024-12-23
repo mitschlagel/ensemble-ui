@@ -20,6 +20,6 @@ struct ProgramView: View {
     }
 }
 
-#Preview {
-    ProgramView(Program.program1)
-}
+//#Preview {
+//    ProgramView(Program.program1)
+//}
