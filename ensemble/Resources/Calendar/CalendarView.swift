@@ -2,7 +2,7 @@
 //  CalendarView.swift
 //  ensemble
 //
-//  Created by Spencer Jones on 12/21/24.
+//  https://github.com/AllanJuenemann/CalendarView/
 //
 
 import SwiftUI
