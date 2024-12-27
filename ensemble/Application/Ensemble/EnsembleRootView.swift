@@ -9,13 +9,59 @@ import SwiftUI
 
 struct EnsembleRootView: View {
     var body: some View {
-        VStack {
-            VStack {
-                Text("Ensemble Root View")
-                Spacer()
+        Grid(alignment: .topLeading, horizontalSpacing: 16, verticalSpacing: 16) {
+            GridRow {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(.ultraThinMaterial)
+                    .overlay {
+                        VStack {
+                            Text("Personnel Directory")
+                            Spacer()
+                        }
+                        .foregroundStyle(Color.primaryText)
+                        .padding()
+                    }
+                    .frame(width: 180, height: 180)
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(.ultraThinMaterial)
+                    .overlay {
+                        VStack {
+                            Text("Master Agreement")
+                            Spacer()
+                        }
+                        .foregroundStyle(Color.primaryText)
+                        .padding()
+                    }
+                    .frame(width: 180, height: 180)
             }
-            .padding()
+            GridRow {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(.ultraThinMaterial)
+                    .overlay {
+                        VStack {
+                            Text("Dress Code")
+                            Spacer()
+                        }
+                        .foregroundStyle(Color.primaryText)
+                        .padding()
+                    }
+                    .frame(width: 180, height: 180)
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(.ultraThinMaterial)
+                    .overlay {
+                        VStack {
+                            Text("Venues")
+                            Spacer()
+                        }
+                        .foregroundStyle(Color.primaryText)
+                        .padding()
+                    }
+                    .frame(width: 180, height: 180)
+            }
+            Spacer()
+            
         }
+        .padding()
         .background(Color.background)
     }
 }
