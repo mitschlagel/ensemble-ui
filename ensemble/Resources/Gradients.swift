@@ -28,5 +28,14 @@ public struct Gradients {
         )
     }
     
+    static func programLargeGradient(_ programColor: Color) -> RadialGradient {
+        RadialGradient(
+            gradient: Gradient(colors: [programColor, programColor.opacity(0.50)]),
+            center: .bottomLeading,
+            startRadius: 0,
+            endRadius: 1000
+        )
+    }
+    
     
 }

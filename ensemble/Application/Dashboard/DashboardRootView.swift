@@ -38,6 +38,7 @@ struct DashboardRootView: View {
                         .tag(index)
                 }
             }
+            .ignoresSafeArea()
             .tabViewStyle(PageTabViewStyle())
         }
 //        .sheet(item: $actionSheet) { action in
