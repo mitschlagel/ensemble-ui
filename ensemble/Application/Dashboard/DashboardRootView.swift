@@ -18,37 +18,47 @@ struct DashboardRootView: View {
     @State var selectedProgram: Program?
     @State var programIndex: Int = 0
     @State private var actionSheet: ActionButtonType?
+    @State private var showingInfoSheet = false
     
     var body: some View {
         VStack {
             welcomeMessage
             // programCarousel(programs)
             programStack(programs)
-            footerContainer(for: selectedProgram)
-                .padding(.horizontal, 16)
+//            footerContainer(for: selectedProgram)
+//                .padding(.horizontal, 16)
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.background)
-        .sheet(item: $actionSheet) { action in
-            switch action {
-            case .services:
-                Text("Dress Code: \(selectedProgram?.dress.name ?? "")")
-                    .presentationDetents([.medium, .large])
-                    .presentationDragIndicator(.visible)
-            case .location:
-                Text("Location: \(selectedProgram?.venueName ?? "")\n\(selectedProgram?.venueAddress ?? "")")
-                    .presentationDetents([.medium, .large])
-                    .presentationDragIndicator(.visible)
-            case .info:
-                Text("More info sheet")
-                    .presentationDetents([.medium, .large])
-                    .presentationDragIndicator(.visible)
-            default:
-                Text("Error")
-            // TODO: handle this more elegantly
+        .sheet(isPresented: $showingInfoSheet) {
+            TabView(selection: $programIndex) {
+                ForEach(Array(programs.enumerated()), id: \.offset) { index, program in
+                    ProgramView(program)
+                        .tag(index)
+                }
             }
+            .tabViewStyle(PageTabViewStyle())
         }
+//        .sheet(item: $actionSheet) { action in
+//            switch action {
+//            case .services:
+//                Text("Dress Code: \(selectedProgram?.dress.name ?? "")")
+//                    .presentationDetents([.medium, .large])
+//                    .presentationDragIndicator(.visible)
+//            case .location:
+//                Text("Location: \(selectedProgram?.venueName ?? "")\n\(selectedProgram?.venueAddress ?? "")")
+//                    .presentationDetents([.medium, .large])
+//                    .presentationDragIndicator(.visible)
+//            case .info:
+//                Text("More info sheet")
+//                    .presentationDetents([.medium, .large])
+//                    .presentationDragIndicator(.visible)
+//            default:
+//                Text("Error")
+//            // TODO: handle this more elegantly
+//            }
+//        }
     }
     
     @ViewBuilder func programStack(_ programs: [Program]) -> some View {
@@ -56,6 +66,13 @@ struct DashboardRootView: View {
             VStack {
                 ForEach(programs, id: \.id) { program in
                     programCard(program)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            // router.dashboardRoutes.append(.program(program))
+                            selectedProgram = program
+                            programIndex = programs.firstIndex(where: {$0.id == program.id}) ?? 0
+                            showingInfoSheet = true
+                        }
                         .shadow(radius: 5, x: 5, y: 5)
                         .padding(.vertical, 8)
                         .frame(width: UIScreen.main.bounds.width - 32)
@@ -153,21 +170,18 @@ struct DashboardRootView: View {
                 }
             }
             .padding(.trailing, 16)
-            .onTapGesture {
-                router.dashboardRoutes.append(.program(program))
-            }
             Spacer()
-            VStack(spacing: 16) {
-                ActionButton(.rep, program) {
-                    router.dashboardRoutes.append(.repertoire(program.repertoire))
-                }
-                ActionButton(.services, program) {
-                    router.dashboardRoutes.append(.services(program))
-                }
-                ActionButton(.info, program) {
-                    actionSheet = .info
-                }
-            }
+//            VStack(spacing: 16) {
+//                ActionButton(.rep, program) {
+//                    router.dashboardRoutes.append(.repertoire(program.repertoire))
+//                }
+//                ActionButton(.services, program) {
+//                    router.dashboardRoutes.append(.services(program))
+//                }
+//                ActionButton(.info, program) {
+//                    actionSheet = .info
+//                }
+//            }
         }
         .padding(16)
         .foregroundStyle(Color.white)
