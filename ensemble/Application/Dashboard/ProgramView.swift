@@ -117,7 +117,11 @@ struct OrchestraRosterView: View {
     
     var body: some View {
         ForEach(groupMusiciansBySection().keys.sorted(), id: \.self) { section in
-            Section(header: Text(section)) {
+            Section(header: HStack {
+                Text(section)
+                Spacer()
+            }
+                .padding(.vertical, 4)) {
                 ForEach(groupMusiciansBySection()[section]!) { musician in
                     HStack {
                         Text(musician.name)
@@ -129,7 +133,7 @@ struct OrchestraRosterView: View {
     }
 
     func groupMusiciansBySection() -> [String: [Musician]] {
-        return Dictionary(grouping: musicians, by: { $0.section })
+        return Dictionary(grouping: musicians, by: { $0.instrument })
     }
 }
 
