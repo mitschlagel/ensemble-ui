@@ -39,7 +39,7 @@ struct DashboardRootView: View {
                 }
             }
             .ignoresSafeArea()
-            .tabViewStyle(PageTabViewStyle())
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         }
 //        .sheet(item: $actionSheet) { action in
 //            switch action {

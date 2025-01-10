@@ -21,26 +21,25 @@ struct ProgramView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            header
             ScrollView {
+                header
                 programTitle
                 Rectangle().frame(height: 1)
                     .padding(.vertical, 8)
-                    .opacity(0.5)
+                    .opacity(0.33)
                 services
                 Rectangle().frame(height: 1)
                     .padding(.vertical, 8)
-                    .opacity(0.5)
+                    .opacity(0.33)
                 dress
                 Rectangle().frame(height: 1)
                     .padding(.vertical, 8)
-                    .opacity(0.5)
+                    .opacity(0.33)
                 personnel
                 Spacer()
             }
         }
         .padding()
-        .padding(.horizontal, 16)
         .foregroundStyle(Color.white)
         .frame(maxWidth: .infinity)
         .background(Gradients.programLargeGradient(program.id_color))
@@ -67,6 +66,7 @@ struct ProgramView: View {
         }
         .font(.title2)
         .padding(.top, 4)
+        .padding(.horizontal, 16)
     }
     
     @ViewBuilder var header: some View {
@@ -112,6 +112,7 @@ struct ProgramView: View {
                 .padding(.bottom, 8)
             }
         }
+        .padding(.horizontal, 16)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
@@ -121,6 +122,7 @@ struct ProgramView: View {
             Text(program.dress.name)
                 .font(.callout)
         }
+        .padding(.horizontal, 16)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
@@ -140,6 +142,7 @@ struct ProgramView: View {
                 }
             
         }
+        .padding(.horizontal, 16)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
