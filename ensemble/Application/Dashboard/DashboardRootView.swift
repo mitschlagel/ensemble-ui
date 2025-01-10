@@ -39,27 +39,9 @@ struct DashboardRootView: View {
                 }
             }
             .ignoresSafeArea()
+            .presentationDragIndicator(.visible)
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         }
-//        .sheet(item: $actionSheet) { action in
-//            switch action {
-//            case .services:
-//                Text("Dress Code: \(selectedProgram?.dress.name ?? "")")
-//                    .presentationDetents([.medium, .large])
-//                    .presentationDragIndicator(.visible)
-//            case .location:
-//                Text("Location: \(selectedProgram?.venueName ?? "")\n\(selectedProgram?.venueAddress ?? "")")
-//                    .presentationDetents([.medium, .large])
-//                    .presentationDragIndicator(.visible)
-//            case .info:
-//                Text("More info sheet")
-//                    .presentationDetents([.medium, .large])
-//                    .presentationDragIndicator(.visible)
-//            default:
-//                Text("Error")
-//            // TODO: handle this more elegantly
-//            }
-//        }
     }
     
     @ViewBuilder func programStack(_ programs: [Program]) -> some View {

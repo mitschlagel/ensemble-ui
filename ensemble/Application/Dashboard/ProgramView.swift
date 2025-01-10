@@ -150,7 +150,7 @@ struct ProgramView: View {
         if let roster = program.personnel {
             VStack(alignment: .leading) {
                 ForEach(section, id: \.self) { instrument in
-                    Text(instrument)
+                    Text("\(instrument) / \(roster.filter { $0.instrument == instrument}.count)")
                         .padding(.top, 4)
                         .padding(.top, 2)
                         .fontWeight(.bold)
