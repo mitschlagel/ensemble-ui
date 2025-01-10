@@ -20,32 +20,18 @@ struct ProgramView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 8) {
             header
             Text(program.title)
                 .font(.title2)
-                .padding(.bottom, 8)
                 .fontWeight(.bold)
             services
-            Divider()
-            
-//            RoundedRectangle(cornerRadius: 8)
-//                .fill(.ultraThinMaterial)
-//                .overlay {
-//                    ForEach(program.services, id: \.id) { service in
-//                        VStack {
-//                            HStack {
-//                                Text(service.day)
-//                                Text(service.time)
-//                                Text(service.type)
-//                            }
-//                            HStack {
-//                                Text(service.location)
-//                                Text(service.type)
-//                            }
-//                        }
-//                    }
-//                }
+            Rectangle().frame(width: 375, height: 1)
+                .padding(.vertical, 8)
+            dress
+            Rectangle().frame(width: 375, height: 1)
+                .padding(.vertical, 8)
+            personnel
             Spacer()
         }
         .padding()
@@ -97,28 +83,53 @@ struct ProgramView: View {
         }
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
-}
-
-struct CollapsibleSection<Content: View>: View {
-    var title: String
-    @Binding var isExpanded: Bool
-    var content: () -> Content
-
-    var body: some View {
+    
+    @ViewBuilder var dress: some View {
         VStack(alignment: .leading) {
-            Button(action: { isExpanded.toggle() }) {
-                HStack {
-                    Text(title)
-                    Spacer()
-                    Image(systemName: "chevron.down")
-                        .rotationEffect(isExpanded ? .degrees(0) : .degrees(90))
+            sectionTitle("Dress")
+            Text(program.dress.name)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+    
+    @ViewBuilder var personnel: some View {
+        VStack(alignment: .leading) {
+            sectionTitle("Personnel")
+            ScrollView {
+                if let roster = program.personnel {
+                    OrchestraRosterView(roster)
                 }
-            }
-            .font(.title3)
-            if isExpanded {
-                content()
+               
             }
         }
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+}
+
+struct OrchestraRosterView: View {
+    
+
+    let musicians: [Musician]
+
+    init(_ musicians: [Musician]) {
+        self.musicians = musicians
+    }
+    
+    var body: some View {
+        ForEach(groupMusiciansBySection().keys.sorted(), id: \.self) { section in
+            Section(header: Text(section)) {
+                ForEach(groupMusiciansBySection()[section]!) { musician in
+                    HStack {
+                        Text(musician.name)
+                        Spacer()
+                    }
+                }
+            }
+        }
+    }
+
+    func groupMusiciansBySection() -> [String: [Musician]] {
+        return Dictionary(grouping: musicians, by: { $0.section })
     }
 }
 
