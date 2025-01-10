@@ -22,37 +22,67 @@ struct ProgramView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             header
-            Text(program.title)
-                .font(.title2)
-                .fontWeight(.bold)
-            services
-            Rectangle().frame(width: 375, height: 1)
-                .padding(.vertical, 8)
-            dress
-            Rectangle().frame(width: 375, height: 1)
-                .padding(.vertical, 8)
-            personnel
-            Spacer()
+            ScrollView {
+                programTitle
+                Rectangle().frame(height: 1)
+                    .padding(.vertical, 8)
+                    .opacity(0.5)
+                services
+                Rectangle().frame(height: 1)
+                    .padding(.vertical, 8)
+                    .opacity(0.5)
+                dress
+                Rectangle().frame(height: 1)
+                    .padding(.vertical, 8)
+                    .opacity(0.5)
+                personnel
+                Spacer()
+            }
         }
         .padding()
+        .padding(.horizontal, 16)
         .foregroundStyle(Color.white)
         .frame(maxWidth: .infinity)
         .background(Gradients.programLargeGradient(program.id_color))
     }
     
-    @ViewBuilder var header: some View {
-        HStack {
+    @ViewBuilder var programTitle: some View {
+        VStack(alignment: .leading) {
             Text(program.id)
                 .fontWeight(.semibold)
+            HStack(alignment: .bottom) {
+                Text(program.title)
+                    .fontWeight(.bold)
+                    .padding(.bottom, 4)
+                Spacer()
+                Button(action: {
+                    // TODO: download pdf
+                }) {
+                    Image("pdf")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 32)
+                }
+            }
+        }
+        .font(.title2)
+        .padding(.top, 4)
+    }
+    
+    @ViewBuilder var header: some View {
+        HStack {
             Spacer()
             Button(action: {
                 dismiss()
             }) {
                 Image(systemName: "xmark.circle") // Or a custom close icon
-                    .font(.title2)
+                    .opacity(0.5)
             }
-            .padding() // Add some padding around the button
+            .font(.title2)
+             // Add some padding around the button
         }
+        .padding(.bottom, 8)
+        
     }
     
     @ViewBuilder func sectionTitle(_ title: String) -> some View {
@@ -78,6 +108,7 @@ struct ProgramView: View {
                     Text(service.location)
                     Text(service.type)
                 }
+                .font(.callout)
                 .padding(.bottom, 8)
             }
         }
@@ -88,6 +119,7 @@ struct ProgramView: View {
         VStack(alignment: .leading) {
             sectionTitle("Dress")
             Text(program.dress.name)
+                .font(.callout)
         }
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
@@ -95,15 +127,44 @@ struct ProgramView: View {
     @ViewBuilder var personnel: some View {
         VStack(alignment: .leading) {
             sectionTitle("Personnel")
-            ScrollView {
-                if let roster = program.personnel {
-                    OrchestraRosterView(roster)
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading) {
+                        musicianList(strings)
+                    }
+                    Spacer()
+                    VStack(alignment: .leading) {
+                        musicianList(winds)
+                        musicianList(brass)
+                        musicianList(others)
+                    }
                 }
-               
-            }
+            
         }
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
+    
+    @ViewBuilder func musicianList(_ section: [String]) -> some View {
+        if let roster = program.personnel {
+            VStack(alignment: .leading) {
+                ForEach(section, id: \.self) { instrument in
+                    Text(instrument)
+                        .padding(.top, 4)
+                        .padding(.top, 2)
+                        .fontWeight(.bold)
+                    ForEach(roster.filter { $0.instrument == instrument}) { musician in
+                        Text(musician.name)
+                    }
+                }
+            }
+            .font(.callout)
+        }
+    }
+    
+    private var strings: [String] = ["Violin", "Viola", "Cello", "Bass"]
+    private var winds: [String] = ["Flute", "Oboe", "Clarinet", "Bassoon"]
+    private var brass: [String] = ["Horn", "Trumpet", "Trombone", "Tuba"]
+    private var others: [String] = ["Timpani", "Percussion", "Harp", "Keyboard"]
+
 }
 
 struct OrchestraRosterView: View {
@@ -119,9 +180,10 @@ struct OrchestraRosterView: View {
         ForEach(groupMusiciansBySection().keys.sorted(), id: \.self) { section in
             Section(header: HStack {
                 Text(section)
+                    .fontWeight(.bold)
                 Spacer()
             }
-                .padding(.vertical, 4)) {
+            .padding(.vertical, 4)) {
                 ForEach(groupMusiciansBySection()[section]!) { musician in
                     HStack {
                         Text(musician.name)
@@ -135,6 +197,8 @@ struct OrchestraRosterView: View {
     func groupMusiciansBySection() -> [String: [Musician]] {
         return Dictionary(grouping: musicians, by: { $0.instrument })
     }
+    
+    
 }
 
 #Preview {

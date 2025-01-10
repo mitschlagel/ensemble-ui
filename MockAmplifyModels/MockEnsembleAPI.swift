@@ -56,10 +56,10 @@ struct Musician: Identifiable, Equatable, Hashable {
         Musician(name: "Joseph Green", instrument: "Cello", section: "Strings"),
         Musician(name: "Scarlett Adams", instrument: "Cello", section: "Strings"),
         Musician(name: "Andrew Baker", instrument: "Cello", section: "Strings"),
-        Musician(name: "Victoria Gonzalez", instrument: "Double Bass", section: "Strings"),
-        Musician(name: "David Nelson", instrument: "Double Bass", section: "Strings"),
-        Musician(name: "Grace Carter", instrument: "Double Bass", section: "Strings"),
-        Musician(name: "Joseph Mitchell", instrument: "Double Bass", section: "Strings"),
+        Musician(name: "Victoria Gonzalez", instrument: "Bass", section: "Strings"),
+        Musician(name: "David Nelson", instrument: "Bass", section: "Strings"),
+        Musician(name: "Grace Carter", instrument: "Bass", section: "Strings"),
+        Musician(name: "Joseph Mitchell", instrument: "Bass", section: "Strings"),
 
         // Woodwinds
         Musician(name: "Lily Perez", instrument: "Flute", section: "Woodwinds"),
@@ -74,8 +74,8 @@ struct Musician: Identifiable, Equatable, Hashable {
         // Brass
         Musician(name: "Luke Stewart", instrument: "Trumpet", section: "Brass"),
         Musician(name: "Julian Sanchez", instrument: "Trumpet", section: "Brass"),
-        Musician(name: "Grace Morris", instrument: "French Horn", section: "Brass"),
-        Musician(name: "Isaac Rogers", instrument: "French Horn", section: "Brass"),
+        Musician(name: "Grace Morris", instrument: "Horn", section: "Brass"),
+        Musician(name: "Isaac Rogers", instrument: "Horn", section: "Brass"),
         Musician(name: "Caroline Reed", instrument: "Trombone", section: "Brass"),
         Musician(name: "Owen Cook", instrument: "Trombone", section: "Brass"),
         Musician(name: "Eleanor Bell", instrument: "Tuba", section: "Brass"),
