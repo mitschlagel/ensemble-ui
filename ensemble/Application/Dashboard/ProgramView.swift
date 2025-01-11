@@ -23,21 +23,27 @@ struct ProgramView: View {
         VStack(alignment: .leading, spacing: 8) {
             ScrollView {
                 header
-                programTitle
-                Rectangle().frame(height: 1)
-                    .padding(.vertical, 8)
-                    .opacity(0.33)
-                services
-                Rectangle().frame(height: 1)
-                    .padding(.vertical, 8)
-                    .opacity(0.33)
-                dress
-                Rectangle().frame(height: 1)
-                    .padding(.vertical, 8)
-                    .opacity(0.33)
-                personnel
-                Spacer()
+                VStack {
+                    programTitle
+                    Rectangle().frame(height: 1)
+                        .padding(.vertical, 8)
+                        .opacity(0.33)
+                    services
+                    Rectangle().frame(height: 1)
+                        .padding(.vertical, 8)
+                        .opacity(0.33)
+                    dress
+                    Rectangle().frame(height: 1)
+                        .padding(.vertical, 8)
+                        .opacity(0.33)
+                    personnel
+                    Spacer()
+                }
+                .padding(.horizontal, 16)
+                
             }
+            .scrollIndicators(.hidden)
+            .scrollIndicatorsFlash(onAppear: true)
         }
         .padding()
         .foregroundStyle(Color.white)
@@ -63,10 +69,17 @@ struct ProgramView: View {
                         .frame(width: 32)
                 }
             }
+            Group {
+                Text("\(program.conductor), conductor")
+                ForEach(program.guest, id: \.self) { guest in
+                    Text(guest)
+                }
+            }
+            .font(.callout)
+            
         }
         .font(.title2)
         .padding(.top, 4)
-        .padding(.horizontal, 16)
     }
     
     @ViewBuilder var header: some View {
@@ -112,7 +125,6 @@ struct ProgramView: View {
                 .padding(.bottom, 8)
             }
         }
-        .padding(.horizontal, 16)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
@@ -122,7 +134,6 @@ struct ProgramView: View {
             Text(program.dress.name)
                 .font(.callout)
         }
-        .padding(.horizontal, 16)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
@@ -140,9 +151,7 @@ struct ProgramView: View {
                         musicianList(others)
                     }
                 }
-            
         }
-        .padding(.horizontal, 16)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
@@ -168,40 +177,6 @@ struct ProgramView: View {
     private var brass: [String] = ["Horn", "Trumpet", "Trombone", "Tuba"]
     private var others: [String] = ["Timpani", "Percussion", "Harp", "Keyboard"]
 
-}
-
-struct OrchestraRosterView: View {
-    
-
-    let musicians: [Musician]
-
-    init(_ musicians: [Musician]) {
-        self.musicians = musicians
-    }
-    
-    var body: some View {
-        ForEach(groupMusiciansBySection().keys.sorted(), id: \.self) { section in
-            Section(header: HStack {
-                Text(section)
-                    .fontWeight(.bold)
-                Spacer()
-            }
-            .padding(.vertical, 4)) {
-                ForEach(groupMusiciansBySection()[section]!) { musician in
-                    HStack {
-                        Text(musician.name)
-                        Spacer()
-                    }
-                }
-            }
-        }
-    }
-
-    func groupMusiciansBySection() -> [String: [Musician]] {
-        return Dictionary(grouping: musicians, by: { $0.instrument })
-    }
-    
-    
 }
 
 #Preview {
