@@ -28,16 +28,6 @@ struct SeasonRootView: View {
         }
     }
     
-    private func getDate(from string: String) -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, yyyy"
-        
-        if let date = dateFormatter.date(from: string) {
-            return date
-        }
-        return nil
-    }
-    
     private func getDates(from programs: [Program]) -> [Date] {
         var dates: [Date] = []
         for program in programs {
