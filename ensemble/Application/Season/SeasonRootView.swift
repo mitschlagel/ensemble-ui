@@ -30,7 +30,7 @@ struct SeasonRootView: View {
     
     private func getDate(from string: String) -> Date? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, yyyy h:mm a"
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
         
         if let date = dateFormatter.date(from: string) {
             return date
@@ -42,8 +42,7 @@ struct SeasonRootView: View {
         var dates: [Date] = []
         for program in programs {
             for service in program.services {
-                let dateTimeString = "\(service.day) \(service.time)"
-                if let date = getDate(from: dateTimeString) {
+                if let date = service.date {
                     dates.append(date)
                 }
             }

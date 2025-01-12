@@ -139,6 +139,17 @@ struct Service: Identifiable, Equatable, Hashable {
     var time: String
     var location: String
     var type: String
+    
+    var date: Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMMM dd HH:mm a" // Format for day and time
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // To avoid issues with different locales
+
+        // Combine day and time strings
+        let dateTimeString = "\(day) \(time)"
+
+        return dateFormatter.date(from: dateTimeString)
+    }
 }
 
 enum DressCode {
