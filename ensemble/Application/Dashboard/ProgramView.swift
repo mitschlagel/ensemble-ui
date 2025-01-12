@@ -25,6 +25,7 @@ struct ProgramView: View {
                 header
                 VStack {
                     programTitle
+                    repertoire(program.repertoire)
                     Rectangle().frame(height: 1)
                         .padding(.vertical, 8)
                         .opacity(0.33)
@@ -39,13 +40,13 @@ struct ProgramView: View {
                     personnel
                     Spacer()
                 }
-                .padding(.horizontal, 16)
+                
                 
             }
             .scrollIndicators(.hidden)
             .scrollIndicatorsFlash(onAppear: true)
         }
-        .padding()
+        .padding(16)
         .foregroundStyle(Color.white)
         .frame(maxWidth: .infinity)
         .background(Gradients.programLargeGradient(program.id_color))
@@ -82,17 +83,40 @@ struct ProgramView: View {
         .padding(.top, 4)
     }
     
+    @ViewBuilder func repertoire(_ repertoire: [Repertoire]) -> some View {
+        VStack(spacing: 16) {
+            ForEach(repertoire) { piece in
+                VStack {
+                    HStack {
+                        Text(piece.title)
+                            .fontWeight(.semibold)
+                        Spacer()
+                        Text(piece.composer)
+                    }
+                    .font(.callout)
+                    HStack {
+                        Text(piece.instrumentation)
+                        Spacer()
+                    }
+                    .font(.footnote)
+                    
+                }
+            }
+        }
+        .padding(.vertical, 8)
+        
+    }
+    
     @ViewBuilder var header: some View {
         HStack {
             Spacer()
             Button(action: {
                 dismiss()
             }) {
-                Image(systemName: "xmark.circle") // Or a custom close icon
+                Image(systemName: "xmark")
                     .opacity(0.5)
             }
             .font(.title2)
-             // Add some padding around the button
         }
         .padding(.bottom, 8)
         
