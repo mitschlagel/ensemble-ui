@@ -8,39 +8,59 @@
 import UIKit
 import SwiftUI
 import Foundation
-
 import Authenticator
 
 struct SeasonRootView: View {
-    
     @Environment(Router.self) private var router
+    
+    private let groupedPrograms: [[Program]]
+    private let dateComponents: Set<DateComponents>
+    
+    init(programs: [Program] = Program.programs) {
+        self.groupedPrograms = Self.groupProgramsByIdPrefix(programs: programs)
+        self.dateComponents = Self.getDateComponents(from: Self.extractDates(from: programs))
+    }
     
     var body: some View {
         VStack {
             CalendarView()
-                .environment(\.locale, .init(identifier: "en"))
+                .decorating(dateComponents, color: .green, size: .large)
+                .environment(\.locale, .current)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.background)
-        .onAppear {
-            let dates = getDates(from: Program.programs)
-            print(dates)
+    }
+    
+    // MARK: - Helper Methods
+    
+    private static func extractDates(from programs: [Program]) -> [Date] {
+        programs.flatMap { program in
+            program.services.compactMap(\.date)
         }
     }
     
-    private func getDates(from programs: [Program]) -> [Date] {
-        var dates: [Date] = []
-        for program in programs {
-            for service in program.services {
-                if let date = service.date {
-                    dates.append(date)
-                }
-            }
-        }
-        return dates
+    private static func getDateComponents(from dates: [Date]) -> Set<DateComponents> {
+        let calendar = Calendar.current
+        let components: [Calendar.Component] = [.year, .month, .day, .hour, .minute]
+        
+        return Set(dates.map { date in
+            calendar.dateComponents(Set(components), from: date)
+        })
+    }
+    
+    private static func groupProgramsByIdPrefix(
+        programs: [Program],
+        prefixLength: Int = 2
+    ) -> [[Program]] {
+        let prefixGroups = Dictionary(
+            grouping: programs,
+            by: { String($0.id.prefix(prefixLength)) }
+        )
+        return Array(prefixGroups.values)
     }
 }
 
+// MARK: - Preview Provider
 #Preview {
     SeasonRootView()
 }

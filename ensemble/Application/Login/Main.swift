@@ -27,7 +27,7 @@ extension Tab {
     @ViewBuilder var label: some View {
         switch self {
         case .dashboard:
-            Image(systemName: "house")
+            Image(systemName: "list.dash")
             //Label("Dashboard", systemImage: "house")
         case .season:
             Image(systemName: "calendar")
@@ -88,4 +88,3 @@ struct Main: View {
 //    LandingScreen(state)
 //    
 //}
-
