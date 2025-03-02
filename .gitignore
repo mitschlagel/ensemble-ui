@@ -6,3 +6,5 @@ amplifyconfiguration*
 
 #xcode
 xcuserdata/
+*.xcuserstate
+xcuserdata/
